@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Projet_5_App.Models.Entities;
 
 namespace Projet_5_App.Models.ViewModel
 {
@@ -13,7 +15,8 @@ namespace Projet_5_App.Models.ViewModel
 
             [Required(ErrorMessage = "La marque est obligatoire.")]
             [Display(Name = "Marque")]
-            public string Brand { get; set; } = string.Empty;
+            public int BrandId { get; set; }
+            public IEnumerable<SelectListItem>? Brands { get; set; }
 
             [Required(ErrorMessage = "Le modèle est obligatoire.")]
             [Display(Name = "Modèle")]

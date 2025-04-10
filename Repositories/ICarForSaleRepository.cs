@@ -6,6 +6,7 @@ namespace Projet_5_App.Repositories
     public interface ICarForSaleRepository
     {
         Task<IEnumerable<CarForSale>> GetAllCarsForSaleAsync();
+        Task<IEnumerable<CarForSale>> GetAllCarsForSaleWithBrandNameAsync();
         Task<CarForSale?> GetCarForSaleByIdAsync(int id);
         Task AddCarForSaleFromViewModelAsync(CarForSaleViewModel carForSaleViewModel);
         Task UpdateCarForSaleFromViewModelAsync(int id, CarForSaleViewModel carForSaleViewModel);

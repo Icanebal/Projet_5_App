@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarForSale>
+﻿@model IEnumerable<CarForPublicViewModel>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <h2 class="card-title mb-2">Prix de vente : @car.SalePrice €</h2>
                         <p class="card-text">Année : @car.Year</p>
-                        <p class="card-text">Marque : @car.Brand</p>
+                        <p class="card-text">Marque : @car.BrandName</p>
                         <p class="card-text">Modèle : @car.Model</p>
                         <p class="card-text">Finition : @car.Trim</p>
                         <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-express mt-2">Voir plus</a>

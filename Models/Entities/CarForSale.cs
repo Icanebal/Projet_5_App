@@ -1,16 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 namespace Projet_5_App.Models.Entities
 {
     public class CarForSale
     {
-        public CarForSale()
-        {
-            Repairs = new List<Repair>();
-        }
         public int Id { get; set; }
         public string VinCode { get; set; } = string.Empty;
-        public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public string Trim { get; set; } = string.Empty;
         public int Year { get; set; }
@@ -21,7 +15,9 @@ namespace Projet_5_App.Models.Entities
         public DateOnly? AvailabilityDate { get; set; }
         public decimal SalePrice { get; set; }
 
-        public Sale Sale { get; set; }
+        public Sale Sale { get; set; } = null!;
+        public int BrandId { get; set; }
+        public Brand Brand { get; set; } = null!;
         public ICollection<Repair> Repairs { get; set; } = new List<Repair>();
 
         [NotMapped]
