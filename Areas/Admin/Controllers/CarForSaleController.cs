@@ -14,8 +14,20 @@ namespace Projet_5_App.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var carsForSale = await _carForSaleRepository.GetAllCarsForSaleAsync();
-            return View(carsForSale);
+            var cars = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
+            var availableCars = cars
+                .Where(c => c.IsAvailable)
+                .Select(c => new CarForPublicViewModel
+                {
+                    Id = c.Id,
+                    BrandName = c.Brand.Name,
+                    Model = c.Model,
+                    Trim = c.Trim,
+                    Year = c.Year,
+                    SalePrice = c.SalePrice
+                })
+                .ToList();
+            return View(availableCars);
         }
         public async Task<IActionResult> Details(int id)
         {
@@ -36,7 +48,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarForSaleViewModel model)
+        public async Task<IActionResult> Create(CarCreateViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -57,11 +69,11 @@ namespace Projet_5_App.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var carForSaleViewModel = new CarForSaleViewModel
+            var carForSaleViewModel = new CarCreateViewModel
             {
                 Id = carForSale.Id,
                 VinCode = carForSale.VinCode,
-                Brand = carForSale.Brand,
+                BrandId = carForSale.Brand.Id,
                 Model = carForSale.Model,
                 Trim = carForSale.Trim,
                 Year = carForSale.Year,
@@ -77,7 +89,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarForSaleViewModel carForSaleViewModel)
+        public async Task<IActionResult> Edit(CarCreateViewModel carForSaleViewModel)
         {
             if (!ModelState.IsValid)
             {

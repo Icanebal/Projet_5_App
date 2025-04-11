@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projet_5_App.Migrations
 {
     /// <inheritdoc />
-    public partial class Init2 : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,25 +53,16 @@ namespace Projet_5_App.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarsForSale",
+                name: "Brands",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VinCode = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Trim = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
-                    PurchaseDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    AvailabilityDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    SalePrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CarsForSale", x => x.Id);
+                    table.PrimaryKey("PK_Brands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,6 +172,34 @@ namespace Projet_5_App.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CarsForSale",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VinCode = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Trim = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    PurchaseDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    AvailabilityDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    SalePrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarsForSale", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarsForSale_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Repairs",
                 columns: table => new
                 {
@@ -224,17 +243,30 @@ namespace Projet_5_App.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "CarsForSale",
-                columns: new[] { "Id", "AvailabilityDate", "Brand", "IsAvailable", "Model", "PurchaseDate", "PurchasePrice", "SalePrice", "Trim", "VinCode", "Year" },
+                table: "Brands",
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(2025, 4, 7), "Mazda", true, "Miata", new DateOnly(2025, 1, 7), 1800.0m, 9900.0m, "LE", "YVV6DV4S59YH60VVH", 2019 },
-                    { 2, new DateOnly(2025, 4, 7), "Jeep", true, "Liberty", new DateOnly(2025, 4, 2), 4500.0m, 5350.0m, "Sport", "L5KJ1AE9KZ0NUYHL0", 2007 },
-                    { 3, null, "Renault", false, "Scénic", new DateOnly(2025, 4, 4), 1800.0m, 2990.0m, "TCe", "HA7NZMD2URDCXCYJ9", 2007 },
-                    { 4, null, "Ford", false, "Explorer", new DateOnly(2025, 4, 5), 24350.0m, 25950.0m, "XLT", "EHT5HDBMUAMR4AJL6", 2017 },
-                    { 5, new DateOnly(2025, 4, 9), "Honda", true, "Civic", new DateOnly(2025, 4, 6), 4000.0m, 4975.0m, "LX", "KSUCFCDJWRH3ZL3MS", 2008 },
-                    { 6, new DateOnly(2025, 4, 10), "Volkswagen", true, "GTI", new DateOnly(2025, 4, 6), 15250.0m, 16190.0m, "S", "NXJ2K11E7SR061YVR", 2016 },
-                    { 7, new DateOnly(2025, 4, 11), "Ford", true, "Edge", new DateOnly(2025, 4, 7), 10990.0m, 12440.0m, "SEL", "9JVHR4BJ6PC1NUXVJ", 2013 }
+                    { 1, "Mazda" },
+                    { 2, "Jeep" },
+                    { 3, "Renault" },
+                    { 4, "Ford" },
+                    { 5, "Honda" },
+                    { 6, "Volkswagen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CarsForSale",
+                columns: new[] { "Id", "AvailabilityDate", "BrandId", "IsAvailable", "Model", "PurchaseDate", "PurchasePrice", "SalePrice", "Trim", "VinCode", "Year" },
+                values: new object[,]
+                {
+                    { 1, new DateOnly(2025, 4, 7), 1, true, "Miata", new DateOnly(2025, 1, 7), 1800.0m, 9900.0m, "LE", "YVV6DV4S59YH60VVH", 2019 },
+                    { 2, new DateOnly(2025, 4, 7), 2, true, "Liberty", new DateOnly(2025, 4, 2), 4500.0m, 5350.0m, "Sport", "L5KJ1AE9KZ0NUYHL0", 2007 },
+                    { 3, null, 3, false, "Scénic", new DateOnly(2025, 4, 4), 1800.0m, 2990.0m, "TCe", "HA7NZMD2URDCXCYJ9", 2007 },
+                    { 4, null, 4, false, "Explorer", new DateOnly(2025, 4, 5), 24350.0m, 25950.0m, "XLT", "EHT5HDBMUAMR4AJL6", 2017 },
+                    { 5, new DateOnly(2025, 4, 9), 5, true, "Civic", new DateOnly(2025, 4, 6), 4000.0m, 4975.0m, "LX", "KSUCFCDJWRH3ZL3MS", 2008 },
+                    { 6, new DateOnly(2025, 4, 10), 6, true, "GTI", new DateOnly(2025, 4, 6), 15250.0m, 16190.0m, "S", "NXJ2K11E7SR061YVR", 2016 },
+                    { 7, new DateOnly(2025, 4, 11), 4, true, "Edge", new DateOnly(2025, 4, 7), 10990.0m, 12440.0m, "SEL", "9JVHR4BJ6PC1NUXVJ", 2013 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -275,6 +307,11 @@ namespace Projet_5_App.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarsForSale_BrandId",
+                table: "CarsForSale",
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Repairs_CarForSaleId",
@@ -320,6 +357,9 @@ namespace Projet_5_App.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarsForSale");
+
+            migrationBuilder.DropTable(
+                name: "Brands");
         }
     }
 }

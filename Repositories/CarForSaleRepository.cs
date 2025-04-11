@@ -17,19 +17,27 @@ namespace Projet_5_App.Repositories
             {
                 return await _context.CarsForSale.ToListAsync();
             }
+
+            public async Task<IEnumerable<CarForSale>> GetAllCarsForSaleWithBrandNameAsync()
+            {
+                return await _context.CarsForSale
+                    .Include(c => c.Brand)
+                    .ToListAsync();
+            }
             public async Task<CarForSale?> GetCarForSaleByIdAsync(int id)
             {
                 return await _context.CarsForSale
                 .Include(c => c.Repairs)
                 .Include(c => c.Sale)
+                .Include(c => c.Brand)
                 .FirstOrDefaultAsync(c => c.Id == id);
             }
-            public async Task AddCarForSaleFromViewModelAsync(CarForSaleViewModel carForSaleViewModel)
+            public async Task AddCarForSaleFromViewModelAsync(CarCreateViewModel carForSaleViewModel)
             {
                 var car = new CarForSale
                 {
                     VinCode = carForSaleViewModel.VinCode,
-                    Brand = carForSaleViewModel.Brand,
+                    BrandId = carForSaleViewModel.BrandId,
                     Model = carForSaleViewModel.Model,
                     Trim = carForSaleViewModel.Trim,
                     Year = carForSaleViewModel.Year,
@@ -43,13 +51,13 @@ namespace Projet_5_App.Repositories
                 _context.CarsForSale.Add(car);
                 await _context.SaveChangesAsync();
             }
-            public async Task UpdateCarForSaleFromViewModelAsync(int id, CarForSaleViewModel carForSaleViewModel)
+            public async Task UpdateCarForSaleFromViewModelAsync(int id, CarCreateViewModel carForSaleViewModel)
             {
                 var car = await _context.CarsForSale.FindAsync(id);
                 if (car == null) return;
 
                 car.VinCode = carForSaleViewModel.VinCode;
-                car.Brand = carForSaleViewModel.Brand;
+                car.BrandId = carForSaleViewModel.BrandId;
                 car.Model = carForSaleViewModel.Model;
                 car.Trim = carForSaleViewModel.Trim;
                 car.Year = carForSaleViewModel.Year;

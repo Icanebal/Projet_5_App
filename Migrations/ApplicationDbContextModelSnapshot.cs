@@ -224,6 +224,55 @@ namespace Projet_5_App.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Projet_5_App.Models.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mazda"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Jeep"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Renault"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Ford"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Honda"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Volkswagen"
+                        });
+                });
+
             modelBuilder.Entity("Projet_5_App.Models.Entities.CarForSale", b =>
                 {
                     b.Property<int>("Id")
@@ -235,9 +284,8 @@ namespace Projet_5_App.Migrations
                     b.Property<DateOnly?>("AvailabilityDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -271,6 +319,8 @@ namespace Projet_5_App.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrandId");
+
                     b.ToTable("CarsForSale");
 
                     b.HasData(
@@ -278,7 +328,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 1,
                             AvailabilityDate = new DateOnly(2025, 4, 7),
-                            Brand = "Mazda",
+                            BrandId = 1,
                             IsAvailable = true,
                             Model = "Miata",
                             PurchaseDate = new DateOnly(2025, 1, 7),
@@ -292,7 +342,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 2,
                             AvailabilityDate = new DateOnly(2025, 4, 7),
-                            Brand = "Jeep",
+                            BrandId = 2,
                             IsAvailable = true,
                             Model = "Liberty",
                             PurchaseDate = new DateOnly(2025, 4, 2),
@@ -305,7 +355,7 @@ namespace Projet_5_App.Migrations
                         new
                         {
                             Id = 3,
-                            Brand = "Renault",
+                            BrandId = 3,
                             IsAvailable = false,
                             Model = "Scénic",
                             PurchaseDate = new DateOnly(2025, 4, 4),
@@ -318,7 +368,7 @@ namespace Projet_5_App.Migrations
                         new
                         {
                             Id = 4,
-                            Brand = "Ford",
+                            BrandId = 4,
                             IsAvailable = false,
                             Model = "Explorer",
                             PurchaseDate = new DateOnly(2025, 4, 5),
@@ -332,7 +382,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 5,
                             AvailabilityDate = new DateOnly(2025, 4, 9),
-                            Brand = "Honda",
+                            BrandId = 5,
                             IsAvailable = true,
                             Model = "Civic",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -346,7 +396,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 6,
                             AvailabilityDate = new DateOnly(2025, 4, 10),
-                            Brand = "Volkswagen",
+                            BrandId = 6,
                             IsAvailable = true,
                             Model = "GTI",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -360,7 +410,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 7,
                             AvailabilityDate = new DateOnly(2025, 4, 11),
-                            Brand = "Ford",
+                            BrandId = 4,
                             IsAvailable = true,
                             Model = "Edge",
                             PurchaseDate = new DateOnly(2025, 4, 7),
@@ -478,6 +528,17 @@ namespace Projet_5_App.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Projet_5_App.Models.Entities.CarForSale", b =>
+                {
+                    b.HasOne("Projet_5_App.Models.Entities.Brand", "Brand")
+                        .WithMany("CarsForSale")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+                });
+
             modelBuilder.Entity("Projet_5_App.Models.Entities.Repair", b =>
                 {
                     b.HasOne("Projet_5_App.Models.Entities.CarForSale", "CarForSale")
@@ -498,6 +559,11 @@ namespace Projet_5_App.Migrations
                         .IsRequired();
 
                     b.Navigation("CarForSale");
+                });
+
+            modelBuilder.Entity("Projet_5_App.Models.Entities.Brand", b =>
+                {
+                    b.Navigation("CarsForSale");
                 });
 
             modelBuilder.Entity("Projet_5_App.Models.Entities.CarForSale", b =>

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Projet_5_App.Models;
+using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Repositories;
 
 namespace Projet_5_App.Controllers;
@@ -17,8 +18,19 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var cars = await _carForSaleRepository.GetAllCarsForSaleAsync();
-        var availableCars = cars.Where(c => c.IsAvailable).ToList();
+        var cars = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
+        var availableCars = cars
+            .Where(c => c.IsAvailable)
+            .Select(c => new CarForPublicViewModel
+            {
+                Id = c.Id,
+                BrandName = c.Brand.Name,
+                Model = c.Model,
+                Trim = c.Trim,
+                Year = c.Year,
+                SalePrice = c.SalePrice
+            })
+            .ToList();
         return View(availableCars);
     }
     public async Task<IActionResult> Details(int id)

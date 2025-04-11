@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Projet_5_App.Models.ViewModel
 {
-    public class CarForSaleViewModel
+    public class CarCreateViewModel
     {
             public int Id { get; set; }
 
@@ -13,7 +14,8 @@ namespace Projet_5_App.Models.ViewModel
 
             [Required(ErrorMessage = "La marque est obligatoire.")]
             [Display(Name = "Marque")]
-            public string Brand { get; set; } = string.Empty;
+            public int BrandId { get; set; }
+            public IEnumerable<SelectListItem>? Brands { get; set; }
 
             [Required(ErrorMessage = "Le modèle est obligatoire.")]
             [Display(Name = "Modèle")]
