@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Projet_5_App.Models.Entities;
 
 namespace Projet_5_App.Models.ViewModel
 {
-    public class CarForSaleViewModel
+    public class CarCreateViewModel
     {
             public int Id { get; set; }
 

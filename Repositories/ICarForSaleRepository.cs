@@ -8,8 +8,8 @@ namespace Projet_5_App.Repositories
         Task<IEnumerable<CarForSale>> GetAllCarsForSaleAsync();
         Task<IEnumerable<CarForSale>> GetAllCarsForSaleWithBrandNameAsync();
         Task<CarForSale?> GetCarForSaleByIdAsync(int id);
-        Task AddCarForSaleFromViewModelAsync(CarForSaleViewModel carForSaleViewModel);
-        Task UpdateCarForSaleFromViewModelAsync(int id, CarForSaleViewModel carForSaleViewModel);
+        Task AddCarForSaleFromViewModelAsync(CarCreateViewModel carForSaleViewModel);
+        Task UpdateCarForSaleFromViewModelAsync(int id, CarCreateViewModel carForSaleViewModel);
         Task UpdateCarForSaleAsync(CarForSale carForSale);
         Task DeleteCarForSaleAsync(int id);
     }

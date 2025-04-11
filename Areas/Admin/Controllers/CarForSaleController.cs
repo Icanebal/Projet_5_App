@@ -48,7 +48,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarForSaleViewModel model)
+        public async Task<IActionResult> Create(CarCreateViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var carForSaleViewModel = new CarForSaleViewModel
+            var carForSaleViewModel = new CarCreateViewModel
             {
                 Id = carForSale.Id,
                 VinCode = carForSale.VinCode,
@@ -89,7 +89,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarForSaleViewModel carForSaleViewModel)
+        public async Task<IActionResult> Edit(CarCreateViewModel carForSaleViewModel)
         {
             if (!ModelState.IsValid)
             {

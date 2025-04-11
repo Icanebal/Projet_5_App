@@ -15,12 +15,12 @@ namespace Projet_5_App.Models.Entities
         public DateOnly? AvailabilityDate { get; set; }
         public decimal SalePrice { get; set; }
 
-        public Sale Sale { get; set; } = null!;
+        public Sale? Sale { get; set; }
         public int BrandId { get; set; }
         public Brand Brand { get; set; } = null!;
         public ICollection<Repair> Repairs { get; set; } = new List<Repair>();
 
         [NotMapped]
-        public decimal TotalCost => PurchasePrice + Repairs.Sum(r => r.Cost);
+        public decimal TotalCost => PurchasePrice + Repairs.Sum(r => r.Cost) + 500;
     }
 }

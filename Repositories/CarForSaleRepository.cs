@@ -32,7 +32,7 @@ namespace Projet_5_App.Repositories
                 .Include(c => c.Brand)
                 .FirstOrDefaultAsync(c => c.Id == id);
             }
-            public async Task AddCarForSaleFromViewModelAsync(CarForSaleViewModel carForSaleViewModel)
+            public async Task AddCarForSaleFromViewModelAsync(CarCreateViewModel carForSaleViewModel)
             {
                 var car = new CarForSale
                 {
@@ -51,7 +51,7 @@ namespace Projet_5_App.Repositories
                 _context.CarsForSale.Add(car);
                 await _context.SaveChangesAsync();
             }
-            public async Task UpdateCarForSaleFromViewModelAsync(int id, CarForSaleViewModel carForSaleViewModel)
+            public async Task UpdateCarForSaleFromViewModelAsync(int id, CarCreateViewModel carForSaleViewModel)
             {
                 var car = await _context.CarsForSale.FindAsync(id);
                 if (car == null) return;
