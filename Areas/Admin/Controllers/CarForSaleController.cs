@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Projet_5_App.Repositories;
 using Projet_5_App.Models.ViewModel;
+using Projet_5_App.Services;
 
 namespace Projet_5_App.Areas.Admin.Controllers
 {
     public class CarForSaleController : Controller
     {
         private readonly ICarForSaleRepository _carForSaleRepository;
+        private readonly CarService _carService;
 
-        public CarForSaleController(ICarForSaleRepository carForSaleRepository)
+        public CarForSaleController(ICarForSaleRepository carForSaleRepository, CarService carService)
         {
             _carForSaleRepository = carForSaleRepository;
+            _carService = carService;
         }
         public async Task<IActionResult> Index()
         {
@@ -48,14 +51,14 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarCreateViewModel model)
+        public async Task<IActionResult> Create(CarCreateViewModel carCreateViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(carCreateViewModel);
             }
 
-            await _carForSaleRepository.AddCarForSaleFromViewModelAsync(model);
+            await _carService.AddCarForSaleFromViewModelAsync(carCreateViewModel);
             return RedirectToAction(nameof(Index));
         }
 
@@ -63,40 +66,24 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-            if (carForSale == null)
+            var carCreateViewModel = await _carService.GetCarCreateViewModelByIdAsync(id);
+            if (carCreateViewModel == null)
             {
                 return NotFound();
             }
-
-            var carForSaleViewModel = new CarCreateViewModel
-            {
-                Id = carForSale.Id,
-                VinCode = carForSale.VinCode,
-                BrandId = carForSale.Brand.Id,
-                Model = carForSale.Model,
-                Trim = carForSale.Trim,
-                Year = carForSale.Year,
-                PurchasePrice = carForSale.PurchasePrice,
-                PurchaseDate = carForSale.PurchaseDate,
-                AvailabilityDate = carForSale.AvailabilityDate,
-                SalePrice = carForSale.SalePrice,
-                IsAvailable = carForSale.IsAvailable
-            };
-
-            return View(carForSaleViewModel);
+            return View(carCreateViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarCreateViewModel carForSaleViewModel)
+        public async Task<IActionResult> Edit(CarCreateViewModel carCreateViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(carForSaleViewModel);
+                return View(carCreateViewModel);
             }
 
-            await _carForSaleRepository.UpdateCarForSaleFromViewModelAsync(carForSaleViewModel.Id, carForSaleViewModel);
+            await _carService.UpdateCarForSaleFromViewModelAsync(carCreateViewModel);
             return RedirectToAction(nameof(Index));
         }
 
