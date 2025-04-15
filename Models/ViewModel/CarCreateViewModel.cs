@@ -51,5 +51,6 @@ namespace Projet_5_App.Models.ViewModel
             [Range(0, 1_000_000, ErrorMessage = "Le prix de vente doit être compris entre 0 et 1 000 000.")]
             [Display(Name = "Prix de vente")]
             public decimal SalePrice { get; set; }
+            public decimal RepairCost { get; set; }
     }
 }

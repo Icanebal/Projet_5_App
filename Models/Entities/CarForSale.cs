@@ -14,7 +14,7 @@ namespace Projet_5_App.Models.Entities
         public bool IsAvailable { get; set; } = true;
         public DateOnly? AvailabilityDate { get; set; }
         public decimal SalePrice { get; set; }
-
+        public bool Deleted { get; set; } = false;
         public Sale? Sale { get; set; }
         public int BrandId { get; set; }
         public Brand Brand { get; set; } = null!;

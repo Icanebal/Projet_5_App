@@ -1,37 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Projet_5_App.Repositories;
 using Projet_5_App.Models.ViewModel;
+using Projet_5_App.Services;
 
 namespace Projet_5_App.Areas.Admin.Controllers
 {
     public class CarForSaleController : Controller
     {
-        private readonly ICarForSaleRepository _carForSaleRepository;
+        private readonly CarService _carService;
 
-        public CarForSaleController(ICarForSaleRepository carForSaleRepository)
+        public CarForSaleController(CarService carService)
         {
-            _carForSaleRepository = carForSaleRepository;
+            _carService = carService;
         }
         public async Task<IActionResult> Index()
         {
-            var cars = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
-            var availableCars = cars
-                .Where(c => c.IsAvailable)
-                .Select(c => new CarForPublicViewModel
-                {
-                    Id = c.Id,
-                    BrandName = c.Brand.Name,
-                    Model = c.Model,
-                    Trim = c.Trim,
-                    Year = c.Year,
-                    SalePrice = c.SalePrice
-                })
-                .ToList();
-            return View(availableCars);
+            var allCars = await _carService.GetAllCarsForPublicAsync();
+            return View(allCars);
         }
         public async Task<IActionResult> Details(int id)
         {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            var carForSale = await _carService.GetCarCreateByIdAsync(id);
             if (carForSale == null)
             {
                 return NotFound();
@@ -48,14 +36,14 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarCreateViewModel model)
+        public async Task<IActionResult> Create(CarCreateViewModel carCreateViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(carCreateViewModel);
             }
 
-            await _carForSaleRepository.AddCarForSaleFromViewModelAsync(model);
+            await _carService.AddCarForSaleFromViewModelAsync(carCreateViewModel);
             return RedirectToAction(nameof(Index));
         }
 
@@ -63,40 +51,24 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-            if (carForSale == null)
+            var carCreateViewModel = await _carService.GetCarCreateViewModelByIdAsync(id);
+            if (carCreateViewModel == null)
             {
                 return NotFound();
             }
-
-            var carForSaleViewModel = new CarCreateViewModel
-            {
-                Id = carForSale.Id,
-                VinCode = carForSale.VinCode,
-                BrandId = carForSale.Brand.Id,
-                Model = carForSale.Model,
-                Trim = carForSale.Trim,
-                Year = carForSale.Year,
-                PurchasePrice = carForSale.PurchasePrice,
-                PurchaseDate = carForSale.PurchaseDate,
-                AvailabilityDate = carForSale.AvailabilityDate,
-                SalePrice = carForSale.SalePrice,
-                IsAvailable = carForSale.IsAvailable
-            };
-
-            return View(carForSaleViewModel);
+            return View(carCreateViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarCreateViewModel carForSaleViewModel)
+        public async Task<IActionResult> Edit(CarCreateViewModel carCreateViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(carForSaleViewModel);
+                return View(carCreateViewModel);
             }
 
-            await _carForSaleRepository.UpdateCarForSaleFromViewModelAsync(carForSaleViewModel.Id, carForSaleViewModel);
+            await _carService.UpdateCarForSaleFromViewModelAsync(carCreateViewModel);
             return RedirectToAction(nameof(Index));
         }
 
@@ -104,21 +76,14 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ToggleAvailability(int id)
         {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-            if (carForSale == null)
-            {
-                return NotFound();
-            }
-            carForSale.IsAvailable = !carForSale.IsAvailable;
-            await _carForSaleRepository.UpdateCarForSaleAsync(carForSale);
-
+            await _carService.ToggleAvailabilityAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            var carForSale = await _carService.GetCarForPublicByIdAsync(id);
             if (carForSale == null)
             {
                 return NotFound();
@@ -131,13 +96,13 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            var carForSale = await _carService.GetCarForPublicByIdAsync(id);
             if (carForSale == null)
             {
                 return NotFound();
             }
 
-            await _carForSaleRepository.DeleteCarForSaleAsync(id);
+            await _carService.DeleteCarForSaleAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

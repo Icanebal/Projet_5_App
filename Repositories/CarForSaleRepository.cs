@@ -13,10 +13,6 @@ namespace Projet_5_App.Repositories
             {
                 _context = context;
             }
-            public async Task<IEnumerable<CarForSale>> GetAllCarsForSaleAsync()
-            {
-                return await _context.CarsForSale.ToListAsync();
-            }
 
             public async Task<IEnumerable<CarForSale>> GetAllCarsForSaleWithBrandNameAsync()
             {
@@ -32,41 +28,9 @@ namespace Projet_5_App.Repositories
                 .Include(c => c.Brand)
                 .FirstOrDefaultAsync(c => c.Id == id);
             }
-            public async Task AddCarForSaleFromViewModelAsync(CarCreateViewModel carForSaleViewModel)
+            public async Task AddCarForSaleAsync(CarForSale carForSale)
             {
-                var car = new CarForSale
-                {
-                    VinCode = carForSaleViewModel.VinCode,
-                    BrandId = carForSaleViewModel.BrandId,
-                    Model = carForSaleViewModel.Model,
-                    Trim = carForSaleViewModel.Trim,
-                    Year = carForSaleViewModel.Year,
-                    PurchasePrice = carForSaleViewModel.PurchasePrice,
-                    PurchaseDate = carForSaleViewModel.PurchaseDate,
-                    AvailabilityDate = carForSaleViewModel.AvailabilityDate,
-                    SalePrice = carForSaleViewModel.SalePrice,
-                    IsAvailable = carForSaleViewModel.IsAvailable
-                };
-
-                _context.CarsForSale.Add(car);
-                await _context.SaveChangesAsync();
-            }
-            public async Task UpdateCarForSaleFromViewModelAsync(int id, CarCreateViewModel carForSaleViewModel)
-            {
-                var car = await _context.CarsForSale.FindAsync(id);
-                if (car == null) return;
-
-                car.VinCode = carForSaleViewModel.VinCode;
-                car.BrandId = carForSaleViewModel.BrandId;
-                car.Model = carForSaleViewModel.Model;
-                car.Trim = carForSaleViewModel.Trim;
-                car.Year = carForSaleViewModel.Year;
-                car.PurchasePrice = carForSaleViewModel.PurchasePrice;
-                car.PurchaseDate = carForSaleViewModel.PurchaseDate;
-                car.AvailabilityDate = carForSaleViewModel.AvailabilityDate;
-                car.SalePrice = carForSaleViewModel.SalePrice;
-                car.IsAvailable = carForSaleViewModel.IsAvailable;
-
+                _context.CarsForSale.Add(carForSale);
                 await _context.SaveChangesAsync();
             }
 
@@ -76,15 +40,11 @@ namespace Projet_5_App.Repositories
                 await _context.SaveChangesAsync();
             }
 
-            public async Task DeleteCarForSaleAsync(int id)
-                {
-                    var carForSale = await _context.CarsForSale.FindAsync(id);
-                        if (carForSale != null)
-                        {
-                            _context.CarsForSale.Remove(carForSale);
-                            await _context.SaveChangesAsync();
-                        }
-                }
+            public async Task DeleteCarForSaleAsync(CarForSale carForSale)
+            {
+                 _context.CarsForSale.Remove(carForSale);
+                 await _context.SaveChangesAsync();
+            }
     }
 }
 

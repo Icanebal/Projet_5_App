@@ -18,7 +18,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

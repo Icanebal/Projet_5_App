@@ -5,12 +5,10 @@ namespace Projet_5_App.Repositories
 {
     public interface ICarForSaleRepository
     {
-        Task<IEnumerable<CarForSale>> GetAllCarsForSaleAsync();
         Task<IEnumerable<CarForSale>> GetAllCarsForSaleWithBrandNameAsync();
         Task<CarForSale?> GetCarForSaleByIdAsync(int id);
-        Task AddCarForSaleFromViewModelAsync(CarCreateViewModel carForSaleViewModel);
-        Task UpdateCarForSaleFromViewModelAsync(int id, CarCreateViewModel carForSaleViewModel);
+        Task AddCarForSaleAsync(CarForSale carForSale);
         Task UpdateCarForSaleAsync(CarForSale carForSale);
-        Task DeleteCarForSaleAsync(int id);
+        Task DeleteCarForSaleAsync(CarForSale carForSale);
     }
 }
