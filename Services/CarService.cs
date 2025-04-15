@@ -15,14 +15,15 @@ namespace Projet_5_App.Services
 
         public async Task<List<CarForPublicViewModel>> GetAllCarsForPublicAsync()
         {
-            var carsForSale = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();            
+            var carsForSale = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
+            var notDeletedCars = carsForSale.Where(c => !c.Deleted);
             return _carMappingService.MapToCarForPublicViewModels(carsForSale);
         }
 
         public async Task<CarForPublicViewModel?> GetCarForPublicByIdAsync(int id)
         {
             var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-            if (carForSale == null || !carForSale.IsAvailable)
+            if (carForSale == null || !carForSale.IsAvailable || carForSale.Deleted)
             {
                 return null;
             }
@@ -80,7 +81,8 @@ namespace Projet_5_App.Services
             var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
             if (carForSale != null)
             {
-                await _carForSaleRepository.DeleteCarForSaleAsync(carForSale);
+                carForSale.Deleted = true;
+                await _carForSaleRepository.UpdateCarForSaleAsync(carForSale);
             }
         }
     }

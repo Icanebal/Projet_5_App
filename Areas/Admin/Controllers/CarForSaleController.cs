@@ -19,7 +19,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Details(int id)
         {
-            var carForSale = await _carService.GetCarForPublicByIdAsync(id);
+            var carForSale = await _carService.GetCarCreateByIdAsync(id);
             if (carForSale == null)
             {
                 return NotFound();
