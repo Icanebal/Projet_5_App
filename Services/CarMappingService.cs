@@ -50,7 +50,8 @@ namespace Projet_5_App.Services
                 Model = carForSale.Model,
                 Trim = carForSale.Trim,
                 Year = carForSale.Year,
-                SalePrice = carForSale.SalePrice
+                SalePrice = carForSale.SalePrice,
+                IsAvailable = carForSale.IsAvailable
             };
         }
 

@@ -1,46 +1,36 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Projet_5_App.Models;
-using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Repositories;
+using Projet_5_App.Services;
 
 namespace Projet_5_App.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ICarForSaleRepository _carForSaleRepository;
-    public HomeController(ILogger<HomeController> logger, ICarForSaleRepository carForSaleRepository)
+    private readonly CarService _carService;
+    public HomeController(ILogger<HomeController> logger, CarService carService)
     {
         _logger = logger;
-        _carForSaleRepository = carForSaleRepository;
+        _carService = carService;
     }
 
     public async Task<IActionResult> Index()
     {
-        var cars = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
-        var availableCars = cars
-            .Where(c => c.IsAvailable)
-            .Select(c => new CarForPublicViewModel
-            {
-                Id = c.Id,
-                BrandName = c.Brand.Name,
-                Model = c.Model,
-                Trim = c.Trim,
-                Year = c.Year,
-                SalePrice = c.SalePrice
-            })
-            .ToList();
+        var allCars = await _carService.GetAllCarsForPublicAsync();
+        var availableCars = allCars.Where(c => c.IsAvailable).ToList();
         return View(availableCars);
     }
     public async Task<IActionResult> Details(int id)
     {
-        var car = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-        if (car == null || !car.IsAvailable)
+        var carForSale = await _carService.GetCarForPublicByIdAsync(id);
+        if (carForSale == null)
         {
             return NotFound();
         }
-        return View(car);
+
+        return View(carForSale);
     }
 
     public IActionResult Privacy()

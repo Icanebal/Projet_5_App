@@ -40,15 +40,11 @@ namespace Projet_5_App.Repositories
                 await _context.SaveChangesAsync();
             }
 
-            public async Task DeleteCarForSaleAsync(int id)
-                {
-                    var carForSale = await _context.CarsForSale.FindAsync(id);
-                        if (carForSale != null)
-                        {
-                            _context.CarsForSale.Remove(carForSale);
-                            await _context.SaveChangesAsync();
-                        }
-                }
+            public async Task DeleteCarForSaleAsync(CarForSale carForSale)
+            {
+                 _context.CarsForSale.Remove(carForSale);
+                 await _context.SaveChangesAsync();
+            }
     }
 }
 

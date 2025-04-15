@@ -8,6 +8,7 @@
         public string Trim { get; set; } = string.Empty;
         public int Year { get; set; }
         public decimal SalePrice { get; set; }
+        public bool IsAvailable { get; set; }
     }
 
 }

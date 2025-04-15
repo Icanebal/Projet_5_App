@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Projet_5_App.Data;
 using Projet_5_App.Repositories;
+using Projet_5_App.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<CarService>();
+builder.Services.AddScoped<CarMappingService>();
 builder.Services.AddScoped<ICarForSaleRepository, CarForSaleRepository>();
 
 var app = builder.Build();

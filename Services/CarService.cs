@@ -12,12 +12,35 @@ namespace Projet_5_App.Services
             _carForSaleRepository = carForSaleRepository;
             _carMappingService = carMappingService;
         }
-        public async Task<List<CarForPublicViewModel>> GetAvailableCarsForPublicAsync()
+
+        public async Task<List<CarForPublicViewModel>> GetAllCarsForPublicAsync()
         {
-            var carsForSale = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
-            var availableCars = carsForSale.Where(c => c.IsAvailable);
-            return _carMappingService.MapToCarForPublicViewModels(availableCars);
+            var carsForSale = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();            
+            return _carMappingService.MapToCarForPublicViewModels(carsForSale);
         }
+
+        public async Task<CarForPublicViewModel?> GetCarForPublicByIdAsync(int id)
+        {
+            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            if (carForSale == null || !carForSale.IsAvailable)
+            {
+                return null;
+            }
+
+            return _carMappingService.MapToCarForPublicViewModel(carForSale);
+        }
+
+        public async Task<CarCreateViewModel?> GetCarCreateByIdAsync(int id)
+        {
+            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            if (carForSale == null)
+            {
+                return null;
+            }
+
+            return _carMappingService.MapToCarCreateViewModel(carForSale);
+        }
+
         public async Task AddCarForSaleFromViewModelAsync(CarCreateViewModel carCreateViewModel)
         {
             var carForSale = _carMappingService.MapToCarForSaleEntity(carCreateViewModel);
@@ -41,6 +64,24 @@ namespace Projet_5_App.Services
             if (carForSale == null) return null;
 
             return _carMappingService.MapToCarCreateViewModel(carForSale);
+        }
+
+        public async Task ToggleAvailabilityAsync(int id)
+        {
+            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            if (carForSale == null) return;
+
+            carForSale.IsAvailable = !carForSale.IsAvailable;
+            await _carForSaleRepository.UpdateCarForSaleAsync(carForSale);
+        }
+
+        public async Task DeleteCarForSaleAsync(int id)
+        {
+            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            if (carForSale != null)
+            {
+                await _carForSaleRepository.DeleteCarForSaleAsync(carForSale);
+            }
         }
     }
 }
