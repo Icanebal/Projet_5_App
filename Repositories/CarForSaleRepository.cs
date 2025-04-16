@@ -39,12 +39,6 @@ namespace Projet_5_App.Repositories
                 _context.CarsForSale.Update(carForSale);
                 await _context.SaveChangesAsync();
             }
-
-            public async Task DeleteCarForSaleAsync(CarForSale carForSale)
-            {
-                 _context.CarsForSale.Remove(carForSale);
-                 await _context.SaveChangesAsync();
-            }
     }
 }
 
