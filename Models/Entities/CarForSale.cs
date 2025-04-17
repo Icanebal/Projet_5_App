@@ -22,5 +22,7 @@ namespace Projet_5_App.Models.Entities
 
         [NotMapped]
         public decimal TotalCost => PurchasePrice + Repairs.Sum(r => r.Cost) + 500;
+
+        public bool EffectiveAvailability => IsAvailable && (AvailabilityDate == null || AvailabilityDate <= DateOnly.FromDateTime(DateTime.Today));
     }
 }

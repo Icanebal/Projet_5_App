@@ -13,10 +13,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<CarService>();
-builder.Services.AddScoped<CarMappingService>();
+builder.Services.AddScoped<CarMapper>();
 builder.Services.AddScoped<ICarForSaleRepository, CarForSaleRepository>();
 
 var app = builder.Build();

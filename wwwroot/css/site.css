@@ -23,6 +23,11 @@ body {
     margin-bottom: 60px;
 }
 
+.container {
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
@@ -51,6 +56,14 @@ h1, p {
     color: #796157;
 }
 
+p {
+    font-family: "DM Sans", sans-serif;
+}
+
+h2 {
+    font-size: 28px;
+}
+
 .libre-baskerville-regular {
     font-family: "Libre Baskerville", serif;
     font-weight: 400;
@@ -69,3 +82,9 @@ h1, p {
     font-style: italic;
 }
 
+.dm-sans-regular {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}

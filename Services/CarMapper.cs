@@ -3,11 +3,11 @@ using Projet_5_App.Models.ViewModel;
 
 namespace Projet_5_App.Services
 {
-    public class CarMappingService
+    public class CarMapper
     {
-        public CarCreateViewModel MapToCarCreateViewModel(CarForSale carForSale)
+        public CarFormViewModel MapToCarFormViewModel(CarForSale carForSale)
         {
-            return new CarCreateViewModel
+            return new CarFormViewModel
             {
                 Id = carForSale.Id,
                 VinCode = carForSale.VinCode,
@@ -23,21 +23,21 @@ namespace Projet_5_App.Services
             };
         }
 
-        public CarForSale MapToCarForSaleEntity(CarCreateViewModel carCreateViewModel)
+        public CarForSale MapToCarForSaleEntity(CarFormViewModel carFormViewModel)
         {
             return new CarForSale
             {
-                Id = carCreateViewModel.Id,
-                VinCode = carCreateViewModel.VinCode,
-                BrandId = carCreateViewModel.BrandId,
-                Model = carCreateViewModel.Model,
-                Trim = carCreateViewModel.Trim,
-                Year = carCreateViewModel.Year,
-                PurchasePrice = carCreateViewModel.PurchasePrice,
-                PurchaseDate = carCreateViewModel.PurchaseDate,
-                AvailabilityDate = carCreateViewModel.AvailabilityDate,
-                SalePrice = carCreateViewModel.PurchasePrice + carCreateViewModel.RepairCost + 500,
-                IsAvailable = carCreateViewModel.IsAvailable
+                Id = carFormViewModel.Id,
+                VinCode = carFormViewModel.VinCode,
+                BrandId = carFormViewModel.BrandId,
+                Model = carFormViewModel.Model,
+                Trim = carFormViewModel.Trim,
+                Year = carFormViewModel.Year,
+                PurchasePrice = carFormViewModel.PurchasePrice,
+                PurchaseDate = carFormViewModel.PurchaseDate,
+                AvailabilityDate = carFormViewModel.AvailabilityDate,
+                SalePrice = carFormViewModel.PurchasePrice + carFormViewModel.RepairCost + 500,
+                IsAvailable = carFormViewModel.IsAvailable
             };
         }
 
@@ -51,7 +51,7 @@ namespace Projet_5_App.Services
                 Trim = carForSale.Trim,
                 Year = carForSale.Year,
                 SalePrice = carForSale.SalePrice,
-                IsAvailable = carForSale.IsAvailable
+                EffectiveAvailability = carForSale.EffectiveAvailability
             };
         }
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Projet_5_App.Models.ViewModel
 {
-    public class CarCreateViewModel
+    public class CarFormViewModel
     {
             public int Id { get; set; }
 

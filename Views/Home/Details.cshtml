@@ -1,0 +1,39 @@
+﻿@model Projet_5_App.Models.ViewModel.CarForPublicViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-4" style="max-width: 1320px;">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-link">&larr; Retour</a>
+
+    <div class="text-center mb-3">
+        @if (!Model.EffectiveAvailability)
+        {
+            <span class="badge bg-warning">Bientôt disponible</span>
+        }
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <div class="d-flex flex-row" style="max-width: 900px; gap: 24px;">
+            <div class="d-flex align-items-center">
+                <img src="https://via.placeholder.com/372x185" class="img-fluid" alt="Image de la voiture" style="width: 625px; height: 595px;" />
+            </div>
+            <div class="card" style="width: 372px;">
+                <div class="p-3">
+                    <p class="text-muted">Vous avez publié cette annonce, vous pouvez la :</p>
+                    <a href="/Admin/CarForSale/Edit/@Model.Id" class="btn btn-secondary me-2">Modifier</a>
+                    <a href="/Admin/CarForSale/Delete/@Model.Id" class="btn btn-danger">Supprimer</a>
+				</div>
+                <div class="card-body">
+                    <h2 class="card-title mb-2">Prix de vente : @Model.SalePrice €</h2>
+                    <p><strong>Année :</strong> @Model.Year</p>
+                    <p><strong>Marque :</strong> @Model.BrandName</p>
+                    <p><strong>Modèle :</strong> @Model.Model</p>
+                    <p><strong>Finition :</strong> @Model.Trim</p>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
