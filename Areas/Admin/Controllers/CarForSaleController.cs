@@ -19,10 +19,10 @@ namespace Projet_5_App.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Details(int id)
         {
-            var carForSale = await _carService.GetCarCreateByIdAsync(id);
+            var carForSale = await _carService.GetCarFormViewModelByIdAsync(id);
             if (carForSale == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             return View(carForSale);
@@ -36,14 +36,14 @@ namespace Projet_5_App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CarCreateViewModel carCreateViewModel)
+        public async Task<IActionResult> Create(CarFormViewModel carFormViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(carCreateViewModel);
+                return View(carFormViewModel);
             }
 
-            await _carService.AddCarForSaleFromViewModelAsync(carCreateViewModel);
+            await _carService.AddCarForSaleFromViewModelAsync(carFormViewModel);
             return RedirectToAction(nameof(Index));
         }
 
@@ -51,24 +51,24 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var carCreateViewModel = await _carService.GetCarCreateViewModelByIdAsync(id);
-            if (carCreateViewModel == null)
+            var carFormViewModel = await _carService.GetCarFormViewModelByIdAsync(id);
+            if (carFormViewModel == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
-            return View(carCreateViewModel);
+            return View(carFormViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarCreateViewModel carCreateViewModel)
+        public async Task<IActionResult> Edit(CarFormViewModel carFormViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(carCreateViewModel);
+                return View(carFormViewModel);
             }
 
-            await _carService.UpdateCarForSaleFromViewModelAsync(carCreateViewModel);
+            await _carService.UpdateCarForSaleFromViewModelAsync(carFormViewModel);
             return RedirectToAction(nameof(Index));
         }
 
@@ -86,7 +86,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
             var carForSale = await _carService.GetCarForPublicByIdAsync(id);
             if (carForSale == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             return View(carForSale);
@@ -99,7 +99,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
             var carForSale = await _carService.GetCarForPublicByIdAsync(id);
             if (carForSale == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             await _carService.DeleteCarForSaleAsync(id);

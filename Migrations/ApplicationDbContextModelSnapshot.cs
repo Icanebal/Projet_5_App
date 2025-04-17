@@ -287,6 +287,9 @@ namespace Projet_5_App.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
@@ -329,6 +332,7 @@ namespace Projet_5_App.Migrations
                             Id = 1,
                             AvailabilityDate = new DateOnly(2025, 4, 7),
                             BrandId = 1,
+                            Deleted = false,
                             IsAvailable = true,
                             Model = "Miata",
                             PurchaseDate = new DateOnly(2025, 1, 7),
@@ -343,6 +347,7 @@ namespace Projet_5_App.Migrations
                             Id = 2,
                             AvailabilityDate = new DateOnly(2025, 4, 7),
                             BrandId = 2,
+                            Deleted = false,
                             IsAvailable = true,
                             Model = "Liberty",
                             PurchaseDate = new DateOnly(2025, 4, 2),
@@ -356,6 +361,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 3,
                             BrandId = 3,
+                            Deleted = false,
                             IsAvailable = false,
                             Model = "Scénic",
                             PurchaseDate = new DateOnly(2025, 4, 4),
@@ -369,6 +375,7 @@ namespace Projet_5_App.Migrations
                         {
                             Id = 4,
                             BrandId = 4,
+                            Deleted = false,
                             IsAvailable = false,
                             Model = "Explorer",
                             PurchaseDate = new DateOnly(2025, 4, 5),
@@ -383,6 +390,7 @@ namespace Projet_5_App.Migrations
                             Id = 5,
                             AvailabilityDate = new DateOnly(2025, 4, 9),
                             BrandId = 5,
+                            Deleted = false,
                             IsAvailable = true,
                             Model = "Civic",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -397,6 +405,7 @@ namespace Projet_5_App.Migrations
                             Id = 6,
                             AvailabilityDate = new DateOnly(2025, 4, 10),
                             BrandId = 6,
+                            Deleted = false,
                             IsAvailable = true,
                             Model = "GTI",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -411,6 +420,7 @@ namespace Projet_5_App.Migrations
                             Id = 7,
                             AvailabilityDate = new DateOnly(2025, 4, 11),
                             BrandId = 4,
+                            Deleted = false,
                             IsAvailable = true,
                             Model = "Edge",
                             PurchaseDate = new DateOnly(2025, 4, 7),
@@ -570,8 +580,7 @@ namespace Projet_5_App.Migrations
                 {
                     b.Navigation("Repairs");
 
-                    b.Navigation("Sale")
-                        .IsRequired();
+                    b.Navigation("Sale");
                 });
 #pragma warning restore 612, 618
         }

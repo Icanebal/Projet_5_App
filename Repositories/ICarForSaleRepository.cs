@@ -9,6 +9,5 @@ namespace Projet_5_App.Repositories
         Task<CarForSale?> GetCarForSaleByIdAsync(int id);
         Task AddCarForSaleAsync(CarForSale carForSale);
         Task UpdateCarForSaleAsync(CarForSale carForSale);
-        Task DeleteCarForSaleAsync(CarForSale carForSale);
     }
 }

@@ -19,7 +19,7 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var allCars = await _carService.GetAllCarsForPublicAsync();
-        var availableCars = allCars.Where(c => c.IsAvailable).ToList();
+        var availableCars = allCars.Where(c => c.EffectiveAvailability).ToList();
         return View(availableCars);
     }
     public async Task<IActionResult> Details(int id)
@@ -27,7 +27,7 @@ public class HomeController : Controller
         var carForSale = await _carService.GetCarForPublicByIdAsync(id);
         if (carForSale == null)
         {
-            return NotFound();
+            return RedirectToAction("Error");
         }
 
         return View(carForSale);

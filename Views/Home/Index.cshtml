@@ -7,9 +7,11 @@
 <div class="container" style="max-width:1320px; margin-top: 30px;">
     <h1 class="text-center" style="font-style: italic; font-size: 44px;">Nos voitures</h1>
 
-    <div class="text-center mb-4">
-        <a asp-action="Create" class="btn btn-express">+ Ajouter une voiture</a>
-    </div>
+        <div class="text-center mb-4">
+            <a asp-action="Create" class="btn btn-express">+ Ajouter une voiture</a>
+        </div>
+
+
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
         @foreach (var car in Model)
