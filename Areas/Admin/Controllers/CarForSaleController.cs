@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Services;
 
 namespace Projet_5_App.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CarForSaleController : Controller
     {
         private readonly CarService _carService;

@@ -20,11 +20,18 @@
                 <img src="https://via.placeholder.com/372x185" class="img-fluid" alt="Image de la voiture" style="width: 625px; height: 595px;" />
             </div>
             <div class="card" style="width: 372px;">
-                <div class="p-3">
+                @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+                {
+                    <div class="p-3">
                     <p class="text-muted">Vous avez publié cette annonce, vous pouvez la :</p>
-                    <a href="/Admin/CarForSale/Edit/@Model.Id" class="btn btn-secondary me-2">Modifier</a>
-                    <a href="/Admin/CarForSale/Delete/@Model.Id" class="btn btn-danger">Supprimer</a>
-				</div>
+                        <a asp-area="Admin" asp-controller="CarForSale" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary me-2">
+                            Modifier
+                        </a>
+                        <a asp-area="Admin" asp-controller="CarForSale" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                            Supprimer
+                        </a>
+					</div>
+				}
                 <div class="card-body">
                     <h2 class="card-title mb-2">Prix de vente : @Model.SalePrice €</h2>
                     <p><strong>Année :</strong> @Model.Year</p>
