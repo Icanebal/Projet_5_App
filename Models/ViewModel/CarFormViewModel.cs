@@ -52,5 +52,8 @@ namespace Projet_5_App.Models.ViewModel
             [Display(Name = "Prix de vente")]
             public decimal SalePrice { get; set; }
             public decimal RepairCost { get; set; }
+            public IFormFile? ImageFile { get; set; }
+            public string ImagePath { get; set; } = string.Empty;
+
     }
 }

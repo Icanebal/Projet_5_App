@@ -76,6 +76,12 @@ h3 {
     font-size: 16px;
 }
 
+label {
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    color: #2C1810;
+}
+
 .image-upload-plus {
     width: 64px;
     height: 64px;

@@ -19,7 +19,8 @@ namespace Projet_5_App.Services
                 PurchaseDate = carForSale.PurchaseDate,
                 AvailabilityDate = carForSale.AvailabilityDate,
                 SalePrice = carForSale.SalePrice,
-                IsAvailable = carForSale.IsAvailable
+                IsAvailable = carForSale.IsAvailable,
+                ImagePath = carForSale.ImagePath
             };
         }
 
@@ -37,7 +38,8 @@ namespace Projet_5_App.Services
                 PurchaseDate = carFormViewModel.PurchaseDate,
                 AvailabilityDate = carFormViewModel.AvailabilityDate,
                 SalePrice = carFormViewModel.PurchasePrice + carFormViewModel.RepairCost + 500,
-                IsAvailable = carFormViewModel.IsAvailable
+                IsAvailable = carFormViewModel.IsAvailable,
+                ImagePath = carFormViewModel.ImagePath
             };
         }
 
@@ -51,7 +53,8 @@ namespace Projet_5_App.Services
                 Trim = carForSale.Trim,
                 Year = carForSale.Year,
                 SalePrice = carForSale.SalePrice,
-                EffectiveAvailability = carForSale.EffectiveAvailability
+                EffectiveAvailability = carForSale.EffectiveAvailability,
+                ImagePath = carForSale.ImagePath
             };
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Services;
@@ -10,10 +11,13 @@ namespace Projet_5_App.Areas.Admin.Controllers
     public class CarForSaleController : Controller
     {
         private readonly CarService _carService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CarForSaleController(CarService carService)
+
+        public CarForSaleController(CarService carService, IWebHostEnvironment webHostEnvironment)
         {
             _carService = carService;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> Index()
         {
@@ -44,6 +48,16 @@ namespace Projet_5_App.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 return View(carFormViewModel);
+            }
+
+            if (carFormViewModel.ImageFile != null && carFormViewModel.ImageFile.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                var fileExtension = Path.GetExtension(carFormViewModel.ImageFile.FileName);
+                var uniqueFileName = Guid.NewGuid().ToString() + fileExtension;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                carFormViewModel.ImagePath = Path.Combine("/uploads/", uniqueFileName).Replace("\\", "/");
             }
 
             await _carService.AddCarForSaleFromViewModelAsync(carFormViewModel);

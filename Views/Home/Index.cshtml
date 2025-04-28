@@ -19,8 +19,16 @@
         {
             <div class="col">
                 <div class="d-flex p-3 align-items-center">
-                    <div class="me-3" style="flex: 0 0 150px;">
-                        <img src="/images/default-car.jpg" alt="Car Image" class="img-fluid rounded" />
+                    <div class="me-3" style="flex: 0 0 411px; object-fit: cover;">
+                        @if (!string.IsNullOrEmpty(car.ImagePath))
+                        {
+                            <img src="@car.ImagePath" alt="Car Image" class="img-fluid rounded" />
+                        }
+                        else
+                        {
+                            <img src="/images/default-car.jpg" alt="Default Car Image" class="img-fluid rounded" />
+                        }
+
                     </div>
                     <div class="card-body">
                         <h2 class="card-title mb-2">Prix de vente : @car.SalePrice €</h2>

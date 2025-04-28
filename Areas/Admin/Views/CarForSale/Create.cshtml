@@ -2,11 +2,9 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
     ViewData["Title"] = "Create";
 }
+
 
 <div class="container" style="max-width:1320px; margin-top: 30px;">
     <h1 class="text-center" style="font-style: italic; font-size: 44px;">Ajouter une voiture</h1>
@@ -14,37 +12,38 @@
 
     <div class="mx-auto p-5 bg-white rounded-4 shadow" style="width: 493px;">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
+            @Html.AntiForgeryToken()
+            <div class="mb-4">
                 <label asp-for="PurchasePrice" class="form-label">Prix d'achat</label>
                 <input asp-for="PurchasePrice" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="PurchasePrice" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label asp-for="RepairCost" class="form-label">Prix des réparations</label>
                 <input asp-for="RepairCost" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="RepairCost" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label asp-for="Year" class="form-label">Année</label>
                 <input asp-for="Year" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label asp-for="Brand" class="form-label">Marque</label>
                 <input asp-for="Brand" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="Brand" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label asp-for="Model" class="form-label">Modèle</label>
                 <input asp-for="Model" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
                 <label asp-for="Trim" class="form-label">Finition</label>
                 <input asp-for="Trim" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="Trim" class="text-danger"></span>
@@ -52,7 +51,7 @@
 
             <div class="mb-3">
                 <label asp-for="ImageFile" class="form-label">Visuel</label><br />
-                <div class="rounded-1 mt-2 d-flex align-items-center justify-content-center gap-3" style="height:185px; color: #2C1810; border: 1px solid #2C1810;">
+                <div class="rounded-1 mt-2 d-flex align-items-center justify-content-center gap-3" style="height:150px; color: #2C1810; border: 1px solid #2C1810;">
                     <input asp-for="ImageFile" id="ImageFile" type="file" style="display:none;" />
                     <label for="ImageFile" class="image-upload-plus">
 						+
@@ -69,3 +68,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

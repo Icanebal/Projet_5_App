@@ -225,6 +225,10 @@ namespace Projet_5_App.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
@@ -268,6 +272,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 7),
                             BrandId = 1,
                             Deleted = false,
+                            ImagePath = "/uploads/Mazda_Miata_LE.webp",
                             IsAvailable = true,
                             Model = "Miata",
                             PurchaseDate = new DateOnly(2025, 1, 7),
@@ -283,6 +288,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 7),
                             BrandId = 2,
                             Deleted = false,
+                            ImagePath = "/uploads/2007-jeep-liberty-sport.jpg",
                             IsAvailable = true,
                             Model = "Liberty",
                             PurchaseDate = new DateOnly(2025, 4, 2),
@@ -297,6 +303,7 @@ namespace Projet_5_App.Migrations
                             Id = 3,
                             BrandId = 3,
                             Deleted = false,
+                            ImagePath = "/uploads/Renault_Scenic_TCe_2007.jpg",
                             IsAvailable = false,
                             Model = "Scénic",
                             PurchaseDate = new DateOnly(2025, 4, 4),
@@ -311,6 +318,7 @@ namespace Projet_5_App.Migrations
                             Id = 4,
                             BrandId = 4,
                             Deleted = false,
+                            ImagePath = "/uploads/Ford_Explorer_XLT_2017.jpg",
                             IsAvailable = false,
                             Model = "Explorer",
                             PurchaseDate = new DateOnly(2025, 4, 5),
@@ -326,6 +334,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 9),
                             BrandId = 5,
                             Deleted = false,
+                            ImagePath = "/uploads/Honda_Civic_LX_2008.jpg",
                             IsAvailable = true,
                             Model = "Civic",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -341,6 +350,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 10),
                             BrandId = 6,
                             Deleted = false,
+                            ImagePath = "/uploads/Volkswagen_GTI_S_2016.jpg",
                             IsAvailable = true,
                             Model = "GTI",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -356,6 +366,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 11),
                             BrandId = 4,
                             Deleted = false,
+                            ImagePath = "/uploads/Ford_Edge_SEL_2013.webp",
                             IsAvailable = true,
                             Model = "Edge",
                             PurchaseDate = new DateOnly(2025, 4, 7),
