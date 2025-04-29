@@ -20,7 +20,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.AccessDeniedPath = "/Identity/Account/Manage/AccessDenied";
 });
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+        .AddViewOptions(options =>
+        {
+            options.HtmlHelperOptions.ClientValidationEnabled = true;
+        });
 builder.Services.AddScoped<CarService>();
 builder.Services.AddScoped<CarMapper>();
 builder.Services.AddScoped<ICarForSaleRepository, CarForSaleRepository>();

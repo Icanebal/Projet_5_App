@@ -14,7 +14,24 @@ namespace Projet_5_App.Data
 
             var adminUser = await userManager.FindByEmailAsync("admin@expressvoitures.fr");
 
-            if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = "admin@expressvoitures.fr",
+                    Email = "admin@expressvoitures.fr",
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(adminUser, "Admin123!");
+
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Failed to create admin user: " + string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
+            }
+
+            if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
             {
                 await userManager.AddToRoleAsync(adminUser, "Admin");
             }

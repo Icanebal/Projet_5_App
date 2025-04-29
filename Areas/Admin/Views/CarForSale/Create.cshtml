@@ -2,16 +2,16 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create";
 }
 
 
 <div class="container" style="max-width:1320px; margin-top: 30px;">
     <h1 class="text-center" style="font-style: italic; font-size: 44px;">Ajouter une voiture</h1>
-	<h3 class="text-center mb-4">tous les champs sont obligatoires</h3>
+    <h3 class="text-center mb-4">tous les champs sont obligatoires</h3>
 
     <div class="mx-auto p-5 bg-white rounded-4 shadow" style="width: 493px;">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" asp-controller="CarForSale" asp-area="Admin" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div class="mb-4">
                 <label asp-for="PurchasePrice" class="form-label">Prix d'achat</label>
@@ -22,7 +22,6 @@
             <div class="mb-4">
                 <label asp-for="RepairCost" class="form-label">Prix des réparations</label>
                 <input asp-for="RepairCost" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
-                <span asp-validation-for="RepairCost" class="text-danger"></span>
             </div>
 
             <div class="mb-4">
@@ -32,9 +31,9 @@
             </div>
 
             <div class="mb-4">
-                <label asp-for="Brand" class="form-label">Marque</label>
-                <input asp-for="Brand" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
-                <span asp-validation-for="Brand" class="text-danger"></span>
+                <label asp-for="BrandId" class="form-label">Marque</label>
+                <input asp-for="BrandId" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
+                <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
 
             <div class="mb-4">
@@ -54,12 +53,11 @@
                 <div class="rounded-1 mt-2 d-flex align-items-center justify-content-center gap-3" style="height:150px; color: #2C1810; border: 1px solid #2C1810;">
                     <input asp-for="ImageFile" id="ImageFile" type="file" style="display:none;" />
                     <label for="ImageFile" class="image-upload-plus">
-						+
-					</label>
-						<span style="color: #929292">Ajouter une image</span>
-					
+                        +
+                    </label>
+                    <span style="color: #929292">Ajouter une image</span>
+
                 </div>
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
             <div class="text-center mb-3">
@@ -68,7 +66,8 @@
         </form>
     </div>
 </div>
-
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+        }
