@@ -7,6 +7,7 @@ namespace Projet_5_App.Repositories
     {
         Task<IEnumerable<CarForSale>> GetAllCarsForSaleWithBrandNameAsync();
         Task<CarForSale?> GetCarForSaleByIdAsync(int id);
+        Task<List<Brand>> GetAllBrandsAsync();
         Task AddCarForSaleAsync(CarForSale carForSale);
         Task UpdateCarForSaleAsync(CarForSale carForSale);
     }

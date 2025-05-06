@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Services;
 
@@ -36,9 +38,16 @@ namespace Projet_5_App.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var brands = await _carService.GetAllBrandsAsSelectListAsync();
+
+            var carFormViewModel = new CarFormViewModel
+            {
+                Brands = brands
+            };
+
+            return View(carFormViewModel);
         }
 
         [HttpPost]
@@ -50,20 +59,15 @@ namespace Projet_5_App.Areas.Admin.Controllers
                 return View(carFormViewModel);
             }
 
-            if (carFormViewModel.ImageFile != null && carFormViewModel.ImageFile.Length > 0)
-            {
-                var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                var fileExtension = Path.GetExtension(carFormViewModel.ImageFile.FileName);
-                var uniqueFileName = Guid.NewGuid().ToString() + fileExtension;
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                carFormViewModel.ImagePath = Path.Combine("/uploads/", uniqueFileName).Replace("\\", "/");
-            }
-
             await _carService.AddCarForSaleFromViewModelAsync(carFormViewModel);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("CreatedCarSuccess");
         }
 
+        [HttpGet]
+        public IActionResult CreatedCarSuccess()
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -113,14 +117,9 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var carForSale = await _carService.GetCarForPublicByIdAsync(id);
-            if (carForSale == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
+            var car = await _carService.GetCarForPublicByIdAsync(id);
             await _carService.DeleteCarForSaleAsync(id);
-            return RedirectToAction(nameof(Index));
+            return View("DeletedCarSuccess", car);
         }
 
     }

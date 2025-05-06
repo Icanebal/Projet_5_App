@@ -32,7 +32,9 @@
 
             <div class="mb-4">
                 <label asp-for="BrandId" class="form-label">Marque</label>
-                <input asp-for="BrandId" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
+                <select asp-for="BrandId" asp-items="Model.Brands" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;">_
+                <option value="">-- Sélectionnez une marque --</option>
+				</select>
                 <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
 
@@ -55,7 +57,7 @@
                     <label for="ImageFile" class="image-upload-plus">
                         +
                     </label>
-                    <span style="color: #929292">Ajouter une image</span>
+                    <span id="file-name" style="color: #929292">Ajouter une image</span>
 
                 </div>
             </div>
@@ -68,6 +70,12 @@
 </div>
 @section Scripts {
     @{
+        <script>
+            document.getElementById("ImageFile").addEventListener("change", function () {
+                const fileName = this.files[0]?.name || "Ajouter une image";
+                document.getElementById("file-name").textContent = fileName;
+            });
+        </script>
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
         }

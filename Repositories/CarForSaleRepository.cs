@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Projet_5_App.Models.Entities;
 using Projet_5_App.Data;
-using Projet_5_App.Models.ViewModel;
 
 namespace Projet_5_App.Repositories
 {
@@ -28,6 +27,12 @@ namespace Projet_5_App.Repositories
                 .Include(c => c.Brand)
                 .FirstOrDefaultAsync(c => c.Id == id);
             }
+
+                public async Task<List<Brand>> GetAllBrandsAsync()
+            {
+                return await _context.Brands.OrderBy(b => b.Name).ToListAsync();
+            }
+            
             public async Task AddCarForSaleAsync(CarForSale carForSale)
             {
                 _context.CarsForSale.Add(carForSale);
