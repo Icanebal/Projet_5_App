@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Services;
 
@@ -13,13 +10,11 @@ namespace Projet_5_App.Areas.Admin.Controllers
     public class CarForSaleController : Controller
     {
         private readonly CarService _carService;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public CarForSaleController(CarService carService, IWebHostEnvironment webHostEnvironment)
+        public CarForSaleController(CarService carService)
         {
             _carService = carService;
-            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> Index()
         {
@@ -77,6 +72,9 @@ namespace Projet_5_App.Areas.Admin.Controllers
             {
                 return RedirectToAction("Error", "Home");
             }
+
+            carFormViewModel.Brands = await _carService.GetAllBrandsAsSelectListAsync();
+
             return View(carFormViewModel);
         }
 
@@ -90,15 +88,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
             }
 
             await _carService.UpdateCarForSaleFromViewModelAsync(carFormViewModel);
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ToggleAvailability(int id)
-        {
-            await _carService.ToggleAvailabilityAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [HttpGet]

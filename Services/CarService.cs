@@ -8,12 +8,12 @@ namespace Projet_5_App.Services
     {
         private readonly ICarForSaleRepository _carForSaleRepository;
         private readonly CarMapper _carMappingService;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        public CarService(ICarForSaleRepository carForSaleRepository, CarMapper carMappingService, IWebHostEnvironment webHostEnvironment)
+        private readonly FileService _fileService;
+        public CarService(ICarForSaleRepository carForSaleRepository, CarMapper carMappingService, FileService fileService)
         {
             _carForSaleRepository = carForSaleRepository;
             _carMappingService = carMappingService;
-            _webHostEnvironment = webHostEnvironment;
+            _fileService = fileService;
         }
 
         public async Task<List<CarForPublicViewModel>> GetAllCarsForPublicAsync()
@@ -60,18 +60,7 @@ namespace Projet_5_App.Services
         {
             if (carFormViewModel.ImageFile != null && carFormViewModel.ImageFile.Length > 0)
             {
-                var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                Directory.CreateDirectory(uploadsFolder);
-
-                var fileName = Guid.NewGuid() + Path.GetExtension(carFormViewModel.ImageFile.FileName);
-                var filePath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await carFormViewModel.ImageFile.CopyToAsync(stream);
-                }
-
-                carFormViewModel.ImagePath = "/uploads/" + fileName;
+                carFormViewModel.ImagePath = await _fileService.SaveImageAsync(carFormViewModel.ImageFile);
             }
 
             var carForSale = _carMappingService.MapToCarForSaleEntity(carFormViewModel);
@@ -84,17 +73,13 @@ namespace Projet_5_App.Services
             var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(carFormViewModel.Id);
             if (carForSale == null) return;
 
-            var updatedCarForSale = _carMappingService.MapToCarForSaleEntity(carFormViewModel);
-            updatedCarForSale.Id = carForSale.Id;
-            await _carForSaleRepository.UpdateCarForSaleAsync(updatedCarForSale);
-        }
+            if (carFormViewModel.ImageFile != null && carFormViewModel.ImageFile.Length > 0)
+            {
+                carFormViewModel.ImagePath = await _fileService.SaveImageAsync(carFormViewModel.ImageFile);
+            }
 
-        public async Task ToggleAvailabilityAsync(int id)
-        {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-            if (carForSale == null) return;
 
-            carForSale.IsAvailable = !carForSale.IsAvailable;
+            _carMappingService.UpdateCarForSaleEntityFromViewModel(carForSale, carFormViewModel);
             await _carForSaleRepository.UpdateCarForSaleAsync(carForSale);
         }
 

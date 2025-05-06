@@ -27,6 +27,7 @@ builder.Services.AddControllersWithViews()
         });
 builder.Services.AddScoped<CarService>();
 builder.Services.AddScoped<CarMapper>();
+builder.Services.AddScoped<FileService>();
 builder.Services.AddScoped<ICarForSaleRepository, CarForSaleRepository>();
 
 var app = builder.Build();

@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-	ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 
@@ -11,7 +11,7 @@
     <h3 class="text-center mb-4">tous les champs sont obligatoires</h3>
 
     <div class="mx-auto p-5 bg-white rounded-4 shadow" style="width: 493px;">
-        <form asp-action="Create" asp-controller="CarForSale" asp-area="Admin" method="post" enctype="multipart/form-data">
+        <form asp-action="Edit" asp-controller="CarForSale" asp-area="Admin" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div class="mb-4">
                 <label asp-for="PurchasePrice" class="form-label">Prix d'achat</label>
@@ -41,8 +41,8 @@
             <div class="mb-4">
                 <label asp-for="BrandId" class="form-label">Marque</label>
                 <select asp-for="BrandId" asp-items="Model.Brands" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;">
-                <option value="">-- Sélectionner une marque --</option>
-				</select>
+                    <option value="">-- Sélectionner une marque --</option>
+                </select>
                 <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
 
@@ -65,7 +65,7 @@
 
             <div class="mb-4" id="availabilityDateContainer">
                 <label asp-for="AvailabilityDate" class="form-label">Date de disponibilité</label>
-                <input asp-for="AvailabilityDate" type="date" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;"/>
+                <input asp-for="AvailabilityDate" type="date" class="form-control rounded-1" style="height:64px; border: 1px solid #2C1810;" />
                 <span asp-validation-for="AvailabilityDate" class="text-danger"></span>
             </div>
 

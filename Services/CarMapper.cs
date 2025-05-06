@@ -58,6 +58,24 @@ namespace Projet_5_App.Services
             };
         }
 
+        public void UpdateCarForSaleEntityFromViewModel(CarForSale carForSale, CarFormViewModel carFormViewModel)
+        {
+            carForSale.VinCode = carFormViewModel.VinCode;
+            carForSale.BrandId = carFormViewModel.BrandId;
+            carForSale.Model = carFormViewModel.Model;
+            carForSale.Trim = carFormViewModel.Trim;
+            carForSale.Year = carFormViewModel.Year;
+            carForSale.PurchasePrice = carFormViewModel.PurchasePrice;
+            carForSale.PurchaseDate = carFormViewModel.PurchaseDate;
+            carForSale.AvailabilityDate = carFormViewModel.AvailabilityDate;
+            carForSale.SalePrice = carFormViewModel.PurchasePrice + carFormViewModel.RepairCost + 500;
+            carForSale.IsAvailable = carFormViewModel.IsAvailable;
+            if (!string.IsNullOrWhiteSpace(carFormViewModel.ImagePath))
+            {
+                carForSale.ImagePath = carFormViewModel.ImagePath;
+            }
+        }
+
         public List<CarForPublicViewModel> MapToCarForPublicViewModels(IEnumerable<CarForSale> cars)
         {
             return cars.Select(c => MapToCarForPublicViewModel(c)).ToList();

@@ -78,6 +78,12 @@ h3 {
     font-size: 16px;
 }
 
+a img:hover {
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
 label {
     font-family: "DM Sans", sans-serif;
     font-size: 18px;
