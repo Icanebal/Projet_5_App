@@ -34,6 +34,17 @@ namespace Projet_5_App.Services
             return _carMappingService.MapToCarForPublicViewModel(carForSale);
         }
 
+        public async Task<CarForPublicViewModel?> GetCarForAdminByIdAsync(int id)
+        {
+            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            if (carForSale == null || carForSale.Deleted)
+            {
+                return null;
+            }
+
+            return _carMappingService.MapToCarForPublicViewModel(carForSale);
+        }
+
         public async Task<CarFormViewModel?> GetCarFormViewModelByIdAsync(int id)
         {
             var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);

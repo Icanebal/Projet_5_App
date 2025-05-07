@@ -9,6 +9,8 @@
         public int Year { get; set; }
         public decimal SalePrice { get; set; }
         public bool EffectiveAvailability { get; set; }
+        public bool IsAvailable { get; set; }
+        public DateOnly? AvailabilityDate { get; set; }
         public IFormFile? ImageFile { get; set; }
         public string ImagePath { get; set; } = string.Empty;
     }

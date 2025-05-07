@@ -10,26 +10,9 @@ namespace Projet_5_App.Areas.Admin.Controllers
     public class CarForSaleController : Controller
     {
         private readonly CarService _carService;
-
-
         public CarForSaleController(CarService carService)
         {
             _carService = carService;
-        }
-        public async Task<IActionResult> Index()
-        {
-            var allCars = await _carService.GetAllCarsForPublicAsync();
-            return View(allCars);
-        }
-        public async Task<IActionResult> Details(int id)
-        {
-            var carForSale = await _carService.GetCarFormViewModelByIdAsync(id);
-            if (carForSale == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
-            return View(carForSale);
         }
 
         [HttpGet]

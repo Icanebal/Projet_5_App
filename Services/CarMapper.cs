@@ -54,6 +54,8 @@ namespace Projet_5_App.Services
                 Year = carForSale.Year,
                 SalePrice = carForSale.SalePrice,
                 EffectiveAvailability = carForSale.EffectiveAvailability,
+                IsAvailable = carForSale.IsAvailable,
+                AvailabilityDate = carForSale.AvailabilityDate,
                 ImagePath = carForSale.ImagePath
             };
         }
