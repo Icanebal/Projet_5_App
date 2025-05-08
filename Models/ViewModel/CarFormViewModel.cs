@@ -28,7 +28,7 @@ namespace Projet_5_App.Models.ViewModel
             public IEnumerable<SelectListItem> AvailableYears { get; set; } = Enumerable.Range(1990, 111)
             .Select(y => new SelectListItem { Value = y.ToString(), Text = y.ToString() });
 
-        [Required(ErrorMessage = "Le prix d'achat est obligatoire.")]
+            [Required(ErrorMessage = "Le prix d'achat est obligatoire.")]
             [Range(0, 1_000_000, ErrorMessage = "Le prix d'achat doit être compris entre 0 et 1 000 000.")]
             [Display(Name = "Prix d'achat")]
             public decimal PurchasePrice { get; set; }
