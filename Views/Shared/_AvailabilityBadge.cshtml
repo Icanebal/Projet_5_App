@@ -8,7 +8,7 @@
 }
 else if (Model.AvailabilityDate != null && Model.AvailabilityDate > DateOnly.FromDateTime(DateTime.Today))
 {
-    <span class="badge bg-warning" style="margin: 30px;">
+    <span class="badge bg-secondary" style="margin: 30px;">
         Disponible le @Model.AvailabilityDate?.ToString("dd/MM/yyyy")
     </span>
 }
