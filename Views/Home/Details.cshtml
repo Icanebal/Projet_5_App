@@ -5,32 +5,33 @@
 }
 
 <div class="container mt-4" style="max-width: 1320px;">
-    <a href="@Url.Action("Index", "Home")" class="btn btn-link">&larr; Retour</a>
-
-    <div class="text-center mb-3">
-        @if (!Model.EffectiveAvailability)
-        {
-            <span class="badge bg-warning">Bientôt disponible</span>
-        }
-    </div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-express mt-4" style="margin-left : 30px">&larr; Retour</a>
 
     <div class="d-flex justify-content-center mt-4">
-        <div class="d-flex flex-row" style="max-width: 900px; gap: 24px;">
-            <div class="d-flex align-items-center">
-                <img src="https://via.placeholder.com/372x185" class="img-fluid" alt="Image de la voiture" style="width: 625px; height: 595px;" />
+        <div class="d-flex justify-content-between" style="gap: 24px;">
+            <div style="flex: 0 0 625px; height: 595px; display: flex; align-items: center; justify-content: center;">
+                <img src="@Model.ImagePath" alt="Image de la voiture" style="object-fit: contain; width: 100%; height: 100%" />
             </div>
-            <div class="card" style="width: 372px;">
-                <div class="p-3">
+            <div style="flex: 0 0 625px; height: 595px; display: flex; flex-direction: column; justify-content: flex-start;">
+                @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+                {
+                    <div class="p-3" style="margin-bottom: 16px;">
                     <p class="text-muted">Vous avez publié cette annonce, vous pouvez la :</p>
-                    <a href="/Admin/CarForSale/Edit/@Model.Id" class="btn btn-secondary me-2">Modifier</a>
-                    <a href="/Admin/CarForSale/Delete/@Model.Id" class="btn btn-danger">Supprimer</a>
-				</div>
-                <div class="card-body">
-                    <h2 class="card-title mb-2">Prix de vente : @Model.SalePrice €</h2>
-                    <p><strong>Année :</strong> @Model.Year</p>
-                    <p><strong>Marque :</strong> @Model.BrandName</p>
-                    <p><strong>Modèle :</strong> @Model.Model</p>
-                    <p><strong>Finition :</strong> @Model.Trim</p>
+                    <a asp-area="Admin" asp-controller="CarForSale" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary me-2">
+                        Modifier
+                    </a>
+                    <a asp-area="Admin" asp-controller="CarForSale" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                        Supprimer
+                    </a>
+					</div>
+				}
+                <div>
+                    <h2 style="margin: 30px; font-size: 28px;"><strong>Prix de vente :</strong> @Model.SalePrice €</h2>
+                    <p style="margin: 30px; font-size: 18px; color: #796157;"><strong>Année :</strong> @Model.Year</p>
+                    <p style="margin: 30px; font-size: 18px; color: #796157;"><strong>Marque :</strong> @Model.BrandName</p>
+                    <p style="margin: 30px; font-size: 18px; color: #796157;"><strong>Modèle :</strong> @Model.Model</p>
+                    <p style="margin: 30px; font-size: 18px; color: #796157;"><strong>Finition :</strong> @Model.Trim</p>
+                    @await Html.PartialAsync("_AvailabilityBadge")
 				</div>
 			</div>
         </div>

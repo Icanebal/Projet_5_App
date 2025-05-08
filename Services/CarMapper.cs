@@ -19,7 +19,8 @@ namespace Projet_5_App.Services
                 PurchaseDate = carForSale.PurchaseDate,
                 AvailabilityDate = carForSale.AvailabilityDate,
                 SalePrice = carForSale.SalePrice,
-                IsAvailable = carForSale.IsAvailable
+                IsAvailable = carForSale.IsAvailable,
+                ImagePath = carForSale.ImagePath
             };
         }
 
@@ -37,7 +38,8 @@ namespace Projet_5_App.Services
                 PurchaseDate = carFormViewModel.PurchaseDate,
                 AvailabilityDate = carFormViewModel.AvailabilityDate,
                 SalePrice = carFormViewModel.PurchasePrice + carFormViewModel.RepairCost + 500,
-                IsAvailable = carFormViewModel.IsAvailable
+                IsAvailable = carFormViewModel.IsAvailable,
+                ImagePath = carFormViewModel.ImagePath
             };
         }
 
@@ -51,8 +53,29 @@ namespace Projet_5_App.Services
                 Trim = carForSale.Trim,
                 Year = carForSale.Year,
                 SalePrice = carForSale.SalePrice,
-                EffectiveAvailability = carForSale.EffectiveAvailability
+                EffectiveAvailability = carForSale.EffectiveAvailability,
+                IsAvailable = carForSale.IsAvailable,
+                AvailabilityDate = carForSale.AvailabilityDate,
+                ImagePath = carForSale.ImagePath
             };
+        }
+
+        public void UpdateCarForSaleEntityFromViewModel(CarForSale carForSale, CarFormViewModel carFormViewModel)
+        {
+            carForSale.VinCode = carFormViewModel.VinCode;
+            carForSale.BrandId = carFormViewModel.BrandId;
+            carForSale.Model = carFormViewModel.Model;
+            carForSale.Trim = carFormViewModel.Trim;
+            carForSale.Year = carFormViewModel.Year;
+            carForSale.PurchasePrice = carFormViewModel.PurchasePrice;
+            carForSale.PurchaseDate = carFormViewModel.PurchaseDate;
+            carForSale.AvailabilityDate = carFormViewModel.AvailabilityDate;
+            carForSale.SalePrice = carFormViewModel.PurchasePrice + carFormViewModel.RepairCost + 500;
+            carForSale.IsAvailable = carFormViewModel.IsAvailable;
+            if (!string.IsNullOrWhiteSpace(carFormViewModel.ImagePath))
+            {
+                carForSale.ImagePath = carFormViewModel.ImagePath;
+            }
         }
 
         public List<CarForPublicViewModel> MapToCarForPublicViewModels(IEnumerable<CarForSale> cars)

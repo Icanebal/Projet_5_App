@@ -187,7 +187,8 @@ namespace Projet_5_App.Migrations
                     AvailabilityDate = table.Column<DateOnly>(type: "date", nullable: true),
                     SalePrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    BrandId = table.Column<int>(type: "int", nullable: false)
+                    BrandId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,16 +259,16 @@ namespace Projet_5_App.Migrations
 
             migrationBuilder.InsertData(
                 table: "CarsForSale",
-                columns: new[] { "Id", "AvailabilityDate", "BrandId", "Deleted", "IsAvailable", "Model", "PurchaseDate", "PurchasePrice", "SalePrice", "Trim", "VinCode", "Year" },
+                columns: new[] { "Id", "AvailabilityDate", "BrandId", "Deleted", "ImagePath", "IsAvailable", "Model", "PurchaseDate", "PurchasePrice", "SalePrice", "Trim", "VinCode", "Year" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(2025, 4, 7), 1, false, true, "Miata", new DateOnly(2025, 1, 7), 1800.0m, 9900.0m, "LE", "YVV6DV4S59YH60VVH", 2019 },
-                    { 2, new DateOnly(2025, 4, 7), 2, false, true, "Liberty", new DateOnly(2025, 4, 2), 4500.0m, 5350.0m, "Sport", "L5KJ1AE9KZ0NUYHL0", 2007 },
-                    { 3, null, 3, false, false, "Scénic", new DateOnly(2025, 4, 4), 1800.0m, 2990.0m, "TCe", "HA7NZMD2URDCXCYJ9", 2007 },
-                    { 4, null, 4, false, false, "Explorer", new DateOnly(2025, 4, 5), 24350.0m, 25950.0m, "XLT", "EHT5HDBMUAMR4AJL6", 2017 },
-                    { 5, new DateOnly(2025, 4, 9), 5, false, true, "Civic", new DateOnly(2025, 4, 6), 4000.0m, 4975.0m, "LX", "KSUCFCDJWRH3ZL3MS", 2008 },
-                    { 6, new DateOnly(2025, 4, 10), 6, false, true, "GTI", new DateOnly(2025, 4, 6), 15250.0m, 16190.0m, "S", "NXJ2K11E7SR061YVR", 2016 },
-                    { 7, new DateOnly(2025, 4, 11), 4, false, true, "Edge", new DateOnly(2025, 4, 7), 10990.0m, 12440.0m, "SEL", "9JVHR4BJ6PC1NUXVJ", 2013 }
+                    { 1, new DateOnly(2025, 4, 7), 1, false, "/uploads/Mazda_Miata_LE.webp", true, "Miata", new DateOnly(2025, 1, 7), 1800.0m, 9900.0m, "LE", "YVV6DV4S59YH60VVH", 2019 },
+                    { 2, new DateOnly(2025, 4, 7), 2, false, "/uploads/2007-jeep-liberty-sport.jpg", true, "Liberty", new DateOnly(2025, 4, 2), 4500.0m, 5350.0m, "Sport", "L5KJ1AE9KZ0NUYHL0", 2007 },
+                    { 3, null, 3, false, "/uploads/Renault_Scenic_TCe_2007.jpg", false, "Scénic", new DateOnly(2025, 4, 4), 1800.0m, 2990.0m, "TCe", "HA7NZMD2URDCXCYJ9", 2007 },
+                    { 4, null, 4, false, "/uploads/Ford_Explorer_XLT_2017.jpg", false, "Explorer", new DateOnly(2025, 4, 5), 24350.0m, 25950.0m, "XLT", "EHT5HDBMUAMR4AJL6", 2017 },
+                    { 5, new DateOnly(2025, 4, 9), 5, false, "/uploads/Honda_Civic_LX_2008.jpg", true, "Civic", new DateOnly(2025, 4, 6), 4000.0m, 4975.0m, "LX", "KSUCFCDJWRH3ZL3MS", 2008 },
+                    { 6, new DateOnly(2025, 4, 10), 6, false, "/uploads/Volkswagen_GTI_S_2016.jpg", true, "GTI", new DateOnly(2025, 4, 6), 15250.0m, 16190.0m, "S", "NXJ2K11E7SR061YVR", 2016 },
+                    { 7, new DateOnly(2025, 4, 11), 4, false, "/uploads/Ford_Edge_SEL_2013.webp", true, "Edge", new DateOnly(2025, 4, 7), 10990.0m, 12440.0m, "SEL", "9JVHR4BJ6PC1NUXVJ", 2013 }
                 });
 
             migrationBuilder.CreateIndex(

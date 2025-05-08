@@ -1,37 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Services;
 
 namespace Projet_5_App.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CarForSaleController : Controller
     {
         private readonly CarService _carService;
-
         public CarForSaleController(CarService carService)
         {
             _carService = carService;
         }
-        public async Task<IActionResult> Index()
-        {
-            var allCars = await _carService.GetAllCarsForPublicAsync();
-            return View(allCars);
-        }
-        public async Task<IActionResult> Details(int id)
-        {
-            var carForSale = await _carService.GetCarFormViewModelByIdAsync(id);
-            if (carForSale == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
-            return View(carForSale);
-        }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var brands = await _carService.GetAllBrandsAsSelectListAsync();
+
+            var carFormViewModel = new CarFormViewModel
+            {
+                Brands = brands
+            };
+
+            return View(carFormViewModel);
         }
 
         [HttpPost]
@@ -44,9 +38,14 @@ namespace Projet_5_App.Areas.Admin.Controllers
             }
 
             await _carService.AddCarForSaleFromViewModelAsync(carFormViewModel);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("CreatedCarSuccess");
         }
 
+        [HttpGet]
+        public IActionResult CreatedCarSuccess()
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -56,6 +55,9 @@ namespace Projet_5_App.Areas.Admin.Controllers
             {
                 return RedirectToAction("Error", "Home");
             }
+
+            carFormViewModel.Brands = await _carService.GetAllBrandsAsSelectListAsync();
+
             return View(carFormViewModel);
         }
 
@@ -69,15 +71,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
             }
 
             await _carService.UpdateCarForSaleFromViewModelAsync(carFormViewModel);
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ToggleAvailability(int id)
-        {
-            await _carService.ToggleAvailabilityAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [HttpGet]
@@ -96,14 +90,9 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var carForSale = await _carService.GetCarForPublicByIdAsync(id);
-            if (carForSale == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
+            var car = await _carService.GetCarForPublicByIdAsync(id);
             await _carService.DeleteCarForSaleAsync(id);
-            return RedirectToAction(nameof(Index));
+            return View("DeletedCarSuccess", car);
         }
 
     }

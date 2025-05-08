@@ -1,4 +1,5 @@
-﻿using Projet_5_App.Models.ViewModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Projet_5_App.Models.ViewModel;
 using Projet_5_App.Repositories;
 
 namespace Projet_5_App.Services
@@ -7,23 +8,36 @@ namespace Projet_5_App.Services
     {
         private readonly ICarForSaleRepository _carForSaleRepository;
         private readonly CarMapper _carMappingService;
-        public CarService(ICarForSaleRepository carForSaleRepository, CarMapper carMappingService)
+        private readonly FileService _fileService;
+        public CarService(ICarForSaleRepository carForSaleRepository, CarMapper carMappingService, FileService fileService)
         {
             _carForSaleRepository = carForSaleRepository;
             _carMappingService = carMappingService;
+            _fileService = fileService;
         }
 
         public async Task<List<CarForPublicViewModel>> GetAllCarsForPublicAsync()
         {
             var carsForSale = await _carForSaleRepository.GetAllCarsForSaleWithBrandNameAsync();
             var notDeletedCars = carsForSale.Where(c => !c.Deleted);
-            return _carMappingService.MapToCarForPublicViewModels(carsForSale);
+            return _carMappingService.MapToCarForPublicViewModels(notDeletedCars);
         }
 
         public async Task<CarForPublicViewModel?> GetCarForPublicByIdAsync(int id)
         {
             var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
             if (carForSale == null || !carForSale.IsAvailable || carForSale.Deleted)
+            {
+                return null;
+            }
+
+            return _carMappingService.MapToCarForPublicViewModel(carForSale);
+        }
+
+        public async Task<CarForPublicViewModel?> GetCarForAdminByIdAsync(int id)
+        {
+            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
+            if (carForSale == null || carForSale.Deleted)
             {
                 return null;
             }
@@ -42,8 +56,24 @@ namespace Projet_5_App.Services
             return _carMappingService.MapToCarFormViewModel(carForSale);
         }
 
+        public async Task<List<SelectListItem>> GetAllBrandsAsSelectListAsync()
+        {
+            var brands = await _carForSaleRepository.GetAllBrandsAsync();
+
+            return brands.Select(b => new SelectListItem
+            {
+                Value = b.Id.ToString(),
+                Text = b.Name
+            }).ToList();
+        }
+
         public async Task AddCarForSaleFromViewModelAsync(CarFormViewModel carFormViewModel)
         {
+            if (carFormViewModel.ImageFile != null && carFormViewModel.ImageFile.Length > 0)
+            {
+                carFormViewModel.ImagePath = await _fileService.SaveImageAsync(carFormViewModel.ImageFile);
+            }
+
             var carForSale = _carMappingService.MapToCarForSaleEntity(carFormViewModel);
 
             await _carForSaleRepository.AddCarForSaleAsync(carForSale);
@@ -54,17 +84,13 @@ namespace Projet_5_App.Services
             var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(carFormViewModel.Id);
             if (carForSale == null) return;
 
-            var updatedCarForSale = _carMappingService.MapToCarForSaleEntity(carFormViewModel);
-            updatedCarForSale.Id = carForSale.Id;
-            await _carForSaleRepository.UpdateCarForSaleAsync(updatedCarForSale);
-        }
+            if (carFormViewModel.ImageFile != null && carFormViewModel.ImageFile.Length > 0)
+            {
+                carFormViewModel.ImagePath = await _fileService.SaveImageAsync(carFormViewModel.ImageFile);
+            }
 
-        public async Task ToggleAvailabilityAsync(int id)
-        {
-            var carForSale = await _carForSaleRepository.GetCarForSaleByIdAsync(id);
-            if (carForSale == null) return;
 
-            carForSale.IsAvailable = !carForSale.IsAvailable;
+            _carMappingService.UpdateCarForSaleEntityFromViewModel(carForSale, carFormViewModel);
             await _carForSaleRepository.UpdateCarForSaleAsync(carForSale);
         }
 

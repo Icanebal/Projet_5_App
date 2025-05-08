@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Projet_5_App.Models.Identity;
 using Projet_5_App.Models.Entities;
 
 namespace Projet_5_App.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -91,6 +92,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 1,
                 Trim = "LE",
                 Year = 2019,
+                ImagePath = "/uploads/Mazda_Miata_LE.webp",
                 PurchasePrice = 1800.0M,
                 PurchaseDate = new (2025, 1, 7),
                 IsAvailable = true,
@@ -106,6 +108,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 2,
                 Trim = "Sport",
                 Year = 2007,
+                ImagePath = "/uploads/2007-jeep-liberty-sport.jpg",
                 PurchasePrice = 4500.0M,
                 PurchaseDate = new(2025, 4, 2),
                 IsAvailable = true,
@@ -121,6 +124,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 3,
                 Trim = "TCe",
                 Year = 2007,
+                ImagePath = "/uploads/Renault_Scenic_TCe_2007.jpg",
                 PurchasePrice = 1800.0M,
                 PurchaseDate = new(2025, 4, 4),
                 IsAvailable = false,
@@ -136,6 +140,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 4,
                 Trim = "XLT",
                 Year = 2017,
+                ImagePath = "/uploads/Ford_Explorer_XLT_2017.jpg",
                 PurchasePrice = 24350.0M,
                 PurchaseDate = new(2025, 4, 5),
                 IsAvailable = false,
@@ -151,6 +156,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 5,
                 Trim = "LX",
                 Year = 2008,
+                ImagePath = "/uploads/Honda_Civic_LX_2008.jpg",
                 PurchasePrice = 4000.0M,
                 PurchaseDate = new(2025, 4, 6),
                 IsAvailable = true,
@@ -166,6 +172,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 6,
                 Trim = "S",
                 Year = 2016,
+                ImagePath = "/uploads/Volkswagen_GTI_S_2016.jpg",
                 PurchasePrice = 15250.0M,
                 PurchaseDate = new(2025, 4, 6),
                 IsAvailable = true,
@@ -181,6 +188,7 @@ public class ApplicationDbContext : IdentityDbContext
                 BrandId = 4,
                 Trim = "SEL",
                 Year = 2013,
+                ImagePath = "/uploads/Ford_Edge_SEL_2013.webp",
                 PurchasePrice = 10990.0M,
                 PurchaseDate = new(2025, 4, 7),
                 IsAvailable = true,

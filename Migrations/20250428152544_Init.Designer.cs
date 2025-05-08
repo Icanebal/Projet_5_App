@@ -12,7 +12,7 @@ using Projet_5_App.Data;
 namespace Projet_5_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250415151557_Init")]
+    [Migration("20250428152544_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Projet_5_App.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -75,71 +75,6 @@ namespace Projet_5_App.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -293,6 +228,10 @@ namespace Projet_5_App.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
@@ -336,6 +275,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 7),
                             BrandId = 1,
                             Deleted = false,
+                            ImagePath = "/uploads/Mazda_Miata_LE.webp",
                             IsAvailable = true,
                             Model = "Miata",
                             PurchaseDate = new DateOnly(2025, 1, 7),
@@ -351,6 +291,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 7),
                             BrandId = 2,
                             Deleted = false,
+                            ImagePath = "/uploads/2007-jeep-liberty-sport.jpg",
                             IsAvailable = true,
                             Model = "Liberty",
                             PurchaseDate = new DateOnly(2025, 4, 2),
@@ -365,6 +306,7 @@ namespace Projet_5_App.Migrations
                             Id = 3,
                             BrandId = 3,
                             Deleted = false,
+                            ImagePath = "/uploads/Renault_Scenic_TCe_2007.jpg",
                             IsAvailable = false,
                             Model = "Scénic",
                             PurchaseDate = new DateOnly(2025, 4, 4),
@@ -379,6 +321,7 @@ namespace Projet_5_App.Migrations
                             Id = 4,
                             BrandId = 4,
                             Deleted = false,
+                            ImagePath = "/uploads/Ford_Explorer_XLT_2017.jpg",
                             IsAvailable = false,
                             Model = "Explorer",
                             PurchaseDate = new DateOnly(2025, 4, 5),
@@ -394,6 +337,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 9),
                             BrandId = 5,
                             Deleted = false,
+                            ImagePath = "/uploads/Honda_Civic_LX_2008.jpg",
                             IsAvailable = true,
                             Model = "Civic",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -409,6 +353,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 10),
                             BrandId = 6,
                             Deleted = false,
+                            ImagePath = "/uploads/Volkswagen_GTI_S_2016.jpg",
                             IsAvailable = true,
                             Model = "GTI",
                             PurchaseDate = new DateOnly(2025, 4, 6),
@@ -424,6 +369,7 @@ namespace Projet_5_App.Migrations
                             AvailabilityDate = new DateOnly(2025, 4, 11),
                             BrandId = 4,
                             Deleted = false,
+                            ImagePath = "/uploads/Ford_Edge_SEL_2013.webp",
                             IsAvailable = true,
                             Model = "Edge",
                             PurchaseDate = new DateOnly(2025, 4, 7),
@@ -490,6 +436,71 @@ namespace Projet_5_App.Migrations
                     b.ToTable("Sales");
                 });
 
+            modelBuilder.Entity("Projet_5_App.Models.Identity.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -501,7 +512,7 @@ namespace Projet_5_App.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Projet_5_App.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -510,7 +521,7 @@ namespace Projet_5_App.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Projet_5_App.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -525,7 +536,7 @@ namespace Projet_5_App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Projet_5_App.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -534,7 +545,7 @@ namespace Projet_5_App.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Projet_5_App.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

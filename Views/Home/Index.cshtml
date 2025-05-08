@@ -1,36 +1,44 @@
 ﻿@model IEnumerable<CarForPublicViewModel>
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="max-width:1320px; margin-top: 30px;">
-    <h1 class="text-center" style="font-style: italic; font-size: 44px;">Nos voitures</h1>
+<div class="container" style="max-width:1320px; margin-top: 50px;">
+	<div style="margin-bottom: 80px;">
+		<h1 class="text-center" style="font-style: italic; font-size: 44px;">Nos voitures</h1>
 
-        <div class="text-center mb-4">
-            <a asp-action="Create" class="btn btn-express">+ Ajouter une voiture</a>
-        </div>
+		@if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+		{
+			<div class="text-center mb-4">
+				<a asp-area="Admin" asp-controller="CarForSale" asp-action="Create" class="btn btn-express">+ Ajouter une voiture</a>
+			</div>
+		}
+	</div>
 
-
-
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        @foreach (var car in Model)
-        {
-            <div class="col">
-                <div class="d-flex p-3 align-items-center">
-                    <div class="me-3" style="flex: 0 0 150px;">
-                        <img src="/images/default-car.jpg" alt="Car Image" class="img-fluid rounded" />
-                    </div>
-                    <div class="card-body">
-                        <h2 class="card-title mb-2">Prix de vente : @car.SalePrice €</h2>
-                        <p class="card-text">Année : @car.Year</p>
-                        <p class="card-text">Marque : @car.BrandName</p>
-                        <p class="card-text">Modèle : @car.Model</p>
-                        <p class="card-text">Finition : @car.Trim</p>
-                        <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-express mt-2">Voir plus</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+	<div class="row row-cols-1 row-cols-md-2 g-4">
+		@foreach (var car in Model)
+		{
+			<div class="col">
+				<div class="d-flex align-items-center" style="width: 594px;">
+					<div style="width: 411px;">
+						<a asp-action="Details" asp-route-id="@car.Id">
+							<img src="@car.ImagePath" alt="Car Image" class="img-fluid rounded;" style="width: 100%; height: auto; object-fit: cover;" />
+						</a>
+					</div>
+					<div style="width: 183px; text-align: center;">
+						<h2 style="font-size: 20px;">Prix : @car.SalePrice €</h2>
+						<p>Année : @car.Year</p>
+						<p>Marque : @car.BrandName</p>
+						<p>Modèle : @car.Model</p>
+						<p>Finition : @car.Trim</p>
+						@if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+						{
+							@await Html.PartialAsync("_AvailabilityBadge", car)
+						}
+					</div>
+				</div>
+			</div>
+		}
+	</div>
 </div>

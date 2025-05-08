@@ -10,7 +10,7 @@ namespace Projet_5_App.Models.Entities
         public int Year { get; set; }
 
         public decimal PurchasePrice { get; set; }
-        public DateOnly PurchaseDate { get; set; }
+        public DateOnly? PurchaseDate { get; set; }
         public bool IsAvailable { get; set; } = true;
         public DateOnly? AvailabilityDate { get; set; }
         public decimal SalePrice { get; set; }
@@ -19,6 +19,7 @@ namespace Projet_5_App.Models.Entities
         public int BrandId { get; set; }
         public Brand Brand { get; set; } = null!;
         public ICollection<Repair> Repairs { get; set; } = new List<Repair>();
+        public string ImagePath { get; set; } = string.Empty;
 
         [NotMapped]
         public decimal TotalCost => PurchasePrice + Repairs.Sum(r => r.Cost) + 500;

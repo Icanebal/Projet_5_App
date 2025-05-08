@@ -39,12 +39,19 @@ body {
 
 .btn-express {
     background-color: #D9A963;
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
     color: #2C1810;
     border: none;
-    border-radius: 3px;
-    padding: 10px 20px;
-    font-weight: 500;
+    border-radius: 5px;
+    padding: 20px 23px 20px 23px;
+    font-weight: 400;
     transition: background-color 0.2s ease;
+}
+
+.btn-express:hover {
+    background-color: #B99056;
+    color: #2C1810;
 }
 
 .nav-link:hover {
@@ -52,17 +59,56 @@ body {
     border-radius: 3px;
 }
 
-h1, p {
+h1 {
     color: #796157;
 }
 
 p {
+    color: #2C1810;
     font-family: "DM Sans", sans-serif;
+    font-size: 16px;
 }
 
 h2 {
     font-size: 28px;
 }
+
+h3 {
+    color: #2C1810;
+    font-size: 16px;
+}
+
+a img:hover {
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+label {
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    color: #2C1810;
+}
+
+.image-upload-plus {
+    width: 64px;
+    height: 64px;
+    border: 1px solid #2C1810;
+    color: #2C1810;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .image-upload-plus:hover {
+        background-color: #929292;
+        border: 1px solid #929292;
+    }
 
 .libre-baskerville-regular {
     font-family: "Libre Baskerville", serif;
