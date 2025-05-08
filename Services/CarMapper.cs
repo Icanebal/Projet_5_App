@@ -1,7 +1,7 @@
-﻿using Projet_5_App.Models.Entities;
-using Projet_5_App.Models.ViewModel;
+﻿using Projet_5.Core.Models.Entities;
+using Projet_5.Web.Models.ViewModel;
 
-namespace Projet_5_App.Services
+namespace Projet_5.Web.Services
 {
     public class CarMapper
     {

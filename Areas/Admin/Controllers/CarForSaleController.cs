@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Projet_5_App.Models.ViewModel;
-using Projet_5_App.Services;
+using Projet_5.Web.Models.ViewModel;
+using Projet_5.Web.Services;
 
-namespace Projet_5_App.Areas.Admin.Controllers
+namespace Projet_5.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
@@ -77,7 +77,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var carForSale = await _carService.GetCarForPublicByIdAsync(id);
+            var carForSale = await _carService.GetCarForAdminByIdAsync(id);
             if (carForSale == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -90,7 +90,7 @@ namespace Projet_5_App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var car = await _carService.GetCarForPublicByIdAsync(id);
+            var car = await _carService.GetCarForAdminByIdAsync(id);
             await _carService.DeleteCarForSaleAsync(id);
             return View("DeletedCarSuccess", car);
         }

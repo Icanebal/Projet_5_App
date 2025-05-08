@@ -21,13 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Repositories\ICarForSaleRepository.cs" />
+    <ProjectReference Include="..\Projet_5.Core\Projet_5.Core.csproj" />
+    <ProjectReference Include="..\Projet_5.Data\Projet_5.Data.csproj" />
   </ItemGroup>
 
 </Project>

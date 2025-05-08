@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Projet_5_App.Models;
-using Projet_5_App.Models.ViewModel;
-using Projet_5_App.Services;
+using Projet_5.Web.Models;
+using Projet_5.Web.Models.ViewModel;
+using Projet_5.Web.Services;
 
-namespace Projet_5_App.Controllers;
+namespace Projet_5.Web.Controllers;
 
 public class HomeController : Controller
 {

@@ -1,4 +1,4 @@
-﻿namespace Projet_5_App.Models.ViewModel
+﻿namespace Projet_5.Web.Models.ViewModel
 {
     public class CarForPublicViewModel
     {

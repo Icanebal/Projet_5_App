@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Projet_5_App.Models.ViewModel;
-using Projet_5_App.Repositories;
+using Projet_5.Web.Models.ViewModel;
+using Projet_5.Core.Interfaces;
 
-namespace Projet_5_App.Services
+namespace Projet_5.Web.Services
 {
     public class CarService
     {

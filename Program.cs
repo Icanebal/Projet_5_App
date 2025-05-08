@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Projet_5_App.Data;
-using Projet_5_App.Repositories;
-using Projet_5_App.Services;
-using Projet_5_App.Models.Identity;
+using Projet_5.Data.Data;
+using Projet_5.Data.Repositories;
+using Projet_5.Web.Services;
+using Projet_5.Core.Models.Identity;
+using Projet_5.Core.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

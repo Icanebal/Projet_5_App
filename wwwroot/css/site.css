@@ -23,20 +23,6 @@ body {
     margin-bottom: 60px;
 }
 
-.container {
-    max-width: 1320px;
-    margin: 0 auto;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
 .btn-express {
     background-color: #D9A963;
     font-family: "DM Sans", sans-serif;
@@ -61,12 +47,9 @@ body {
 
 h1 {
     color: #796157;
-}
-
-p {
-    color: #2C1810;
-    font-family: "DM Sans", sans-serif;
-    font-size: 16px;
+    font-size: 44px;
+    font-style: italic;
+    text-align: center;
 }
 
 h2 {
@@ -76,6 +59,12 @@ h2 {
 h3 {
     color: #2C1810;
     font-size: 16px;
+}
+
+p {
+    color: #796157;
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
 }
 
 a img:hover {
