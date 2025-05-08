@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Projet_5_App.Models.ViewModel;
-using Projet_5_App.Services;
+using Projet_5.Web.Models.ViewModel;
+using Projet_5.Web.Services;
 
-namespace Projet_5_App.Areas.Admin.Controllers
+namespace Projet_5.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]

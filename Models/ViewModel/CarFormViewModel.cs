@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Projet_5_App.Models.ViewModel
+namespace Projet_5.Web.Models.ViewModel
 {
     public class CarFormViewModel
     {

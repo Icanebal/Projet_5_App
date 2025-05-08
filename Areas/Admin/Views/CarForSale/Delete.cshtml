@@ -1,4 +1,4 @@
-﻿@model Projet_5_App.Models.ViewModel.CarForPublicViewModel
+﻿@model Projet_5.Web.Models.ViewModel.CarForPublicViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,6 +10,6 @@
     <form asp-area="Admin" asp-controller="CarForSale" asp-action="Delete" asp-route-id="@Model.Id" method="post" class="mt-4">
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-danger me-2">Supprimer</button>
-    <a asp-area="" asp-controller="CarForSale" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Annuler</a>
+    <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Annuler</a>
 	</form>
 </div>
