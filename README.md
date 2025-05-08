@@ -8,7 +8,7 @@ Ce projet répond à des spécifications fonctionnelles axées sur la simplicit�
 ## Fonctionnalités principales
 
 - 🔐 Authentification avec ASP.NET Identity (accès admin uniquement)
-- 📋 Ajout, édition et suppression logique de véhicules
+- 📋 Ajout, édition et suppression logique de véhicules avec champs étiquetés
 - 📸 Upload d'images
 - 🟢 Badge de disponibilité automatique
 - 🧼 Interface conforme à la maquette
