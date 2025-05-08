@@ -4,9 +4,9 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="max-width:1320px; margin-top: 50px;">
+<div class="container mt-5">
 	<div style="margin-bottom: 80px;">
-		<h1 class="text-center" style="font-style: italic; font-size: 44px;">Nos voitures</h1>
+		<h1>Nos voitures</h1>
 
 		@if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
 		{
@@ -16,18 +16,18 @@
 		}
 	</div>
 
-	<div class="row row-cols-1 row-cols-md-2 g-4">
+	<div class="row g-5">
 		@foreach (var car in Model)
 		{
 			<div class="col">
-				<div class="d-flex align-items-center" style="width: 594px;">
-					<div style="width: 411px;">
+				<div class="d-flex align-items-center" style="width: 594px; height: 316px;">
+					<div style="width: 411px; height: 316px;">
 						<a asp-action="Details" asp-route-id="@car.Id">
-							<img src="@car.ImagePath" alt="Car Image" class="img-fluid rounded;" style="width: 100%; height: auto; object-fit: cover;" />
+							<img src="@car.ImagePath" alt="Car Image" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 6px;" />
 						</a>
 					</div>
-					<div style="width: 183px; text-align: center;">
-						<h2 style="font-size: 20px;">Prix : @car.SalePrice €</h2>
+					<div style="width: 183px; height: 316px; text-align: left; margin-left: 20px; margin-top: 80px;">
+						<h2 style="font-size: 22px; white-space: nowrap;">Prix : @car.SalePrice €</h2>
 						<p>Année : @car.Year</p>
 						<p>Marque : @car.BrandName</p>
 						<p>Modèle : @car.Model</p>
