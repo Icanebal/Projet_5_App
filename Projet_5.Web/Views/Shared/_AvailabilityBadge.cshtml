@@ -1,0 +1,20 @@
+﻿@model Projet_5.Web.Models.ViewModel.CarForPublicViewModel
+
+@if (!Model.IsAvailable)
+{
+    <span class="badge bg-danger" style="margin: 30px;">
+        Disponbilité non renseignée
+    </span>
+}
+else if (Model.AvailabilityDate != null && Model.AvailabilityDate > DateOnly.FromDateTime(DateTime.Today))
+{
+    <span class="badge bg-secondary" style="margin: 30px;">
+        Disponible le @Model.AvailabilityDate?.ToString("dd/MM/yyyy")
+    </span>
+}
+else
+{
+    <span class="badge bg-success" style="margin: 30px;">
+        Disponible
+    </span>
+}

@@ -1,0 +1,37 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <section class="text-center mt-5">
+        <h1 class="mb-4" style="font-family: 'Libre Baskerville', serif; font-weight: bold; font-style: normal; font-size: 36px; color: #2C1810;">Express Voitures</h1>
+
+        <form method="post" style="max-width: 400px; margin: 0 auto;">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-4 text-start">
+                <label asp-for="Input.Email" class="form-label">Adresse email</label>
+                <input asp-for="Input.Email" class="form-control rounded-1" style="height: 64px; border: 1px solid #2C1810;" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4 text-start">
+                <label asp-for="Input.Password" class="form-label">Mot de passe</label>
+                <input asp-for="Input.Password" class="form-control rounded-1" style="height: 64px; border: 1px solid #2C1810;" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-express">Se connecter</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
