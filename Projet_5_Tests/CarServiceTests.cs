@@ -70,8 +70,7 @@ namespace Projet_5_Tests
                 Model = "Focus",
                 Trim = "ST",
                 Year = 2020,
-                PurchasePrice = 20000,
-                RepairCost = 5000,
+                SalePrice = 20000,
                 Brand = new Brand { Id = 1, Name = "Ford" }
             };
 
